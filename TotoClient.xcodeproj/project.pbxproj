@@ -1,0 +1,274 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA24614B76CBA005D8027 /* Foundation.framework */; };
+		24FAA25514B76D43005D8027 /* libb64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA25314B76D43005D8027 /* libb64.a */; };
+		24FAA25614B76D43005D8027 /* libObjectiveBSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA25414B76D43005D8027 /* libObjectiveBSON.a */; };
+		24FAA25D14B76D66005D8027 /* DataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25714B76D66005D8027 /* DataService.h */; };
+		24FAA25E14B76D66005D8027 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25814B76D66005D8027 /* DataService.m */; };
+		24FAA25F14B76D66005D8027 /* HMAC.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25914B76D66005D8027 /* HMAC.h */; };
+		24FAA26014B76D66005D8027 /* HMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25A14B76D66005D8027 /* HMAC.m */; };
+		24FAA26114B76D66005D8027 /* TotoService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25B14B76D66005D8027 /* TotoService.h */; };
+		24FAA26214B76D66005D8027 /* TotoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25C14B76D66005D8027 /* TotoService.m */; };
+		24FAA26414B76FB8005D8027 /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA26314B76FB8005D8027 /* NSData+Base64.h */; };
+		24FAA26614B76FD4005D8027 /* BSONSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA26514B76FD4005D8027 /* BSONSerialization.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		24FAA24314B76CBA005D8027 /* libTotoClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTotoClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		24FAA24614B76CBA005D8027 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		24FAA24A14B76CBA005D8027 /* TotoClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TotoClient-Prefix.pch"; sourceTree = "<group>"; };
+		24FAA25314B76D43005D8027 /* libb64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libb64.a; path = lib/libb64.a; sourceTree = "<group>"; };
+		24FAA25414B76D43005D8027 /* libObjectiveBSON.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveBSON.a; path = lib/libObjectiveBSON.a; sourceTree = "<group>"; };
+		24FAA25714B76D66005D8027 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
+		24FAA25814B76D66005D8027 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
+		24FAA25914B76D66005D8027 /* HMAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMAC.h; sourceTree = "<group>"; };
+		24FAA25A14B76D66005D8027 /* HMAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMAC.m; sourceTree = "<group>"; };
+		24FAA25B14B76D66005D8027 /* TotoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotoService.h; sourceTree = "<group>"; };
+		24FAA25C14B76D66005D8027 /* TotoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotoService.m; sourceTree = "<group>"; };
+		24FAA26314B76FB8005D8027 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		24FAA26514B76FD4005D8027 /* BSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSONSerialization.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		24FAA24014B76CBA005D8027 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24FAA25514B76D43005D8027 /* libb64.a in Frameworks */,
+				24FAA25614B76D43005D8027 /* libObjectiveBSON.a in Frameworks */,
+				24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		24FAA23814B76CBA005D8027 = {
+			isa = PBXGroup;
+			children = (
+				24FAA24814B76CBA005D8027 /* TotoClient */,
+				24FAA24514B76CBA005D8027 /* Frameworks */,
+				24FAA24414B76CBA005D8027 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		24FAA24414B76CBA005D8027 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				24FAA24314B76CBA005D8027 /* libTotoClient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		24FAA24514B76CBA005D8027 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				24FAA25314B76D43005D8027 /* libb64.a */,
+				24FAA25414B76D43005D8027 /* libObjectiveBSON.a */,
+				24FAA24614B76CBA005D8027 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		24FAA24814B76CBA005D8027 /* TotoClient */ = {
+			isa = PBXGroup;
+			children = (
+				24FAA25714B76D66005D8027 /* DataService.h */,
+				24FAA25814B76D66005D8027 /* DataService.m */,
+				24FAA25914B76D66005D8027 /* HMAC.h */,
+				24FAA25A14B76D66005D8027 /* HMAC.m */,
+				24FAA25B14B76D66005D8027 /* TotoService.h */,
+				24FAA25C14B76D66005D8027 /* TotoService.m */,
+				24FAA26314B76FB8005D8027 /* NSData+Base64.h */,
+				24FAA26514B76FD4005D8027 /* BSONSerialization.h */,
+				24FAA24914B76CBA005D8027 /* Supporting Files */,
+			);
+			path = TotoClient;
+			sourceTree = "<group>";
+		};
+		24FAA24914B76CBA005D8027 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				24FAA24A14B76CBA005D8027 /* TotoClient-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		24FAA24114B76CBA005D8027 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24FAA25D14B76D66005D8027 /* DataService.h in Headers */,
+				24FAA25F14B76D66005D8027 /* HMAC.h in Headers */,
+				24FAA26114B76D66005D8027 /* TotoService.h in Headers */,
+				24FAA26414B76FB8005D8027 /* NSData+Base64.h in Headers */,
+				24FAA26614B76FD4005D8027 /* BSONSerialization.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		24FAA24214B76CBA005D8027 /* TotoClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24FAA25014B76CBA005D8027 /* Build configuration list for PBXNativeTarget "TotoClient" */;
+			buildPhases = (
+				24FAA23F14B76CBA005D8027 /* Sources */,
+				24FAA24014B76CBA005D8027 /* Frameworks */,
+				24FAA24114B76CBA005D8027 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TotoClient;
+			productName = TotoClient;
+			productReference = 24FAA24314B76CBA005D8027 /* libTotoClient.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		24FAA23A14B76CBA005D8027 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = JOT;
+			};
+			buildConfigurationList = 24FAA23D14B76CBA005D8027 /* Build configuration list for PBXProject "TotoClient" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 24FAA23814B76CBA005D8027;
+			productRefGroup = 24FAA24414B76CBA005D8027 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				24FAA24214B76CBA005D8027 /* TotoClient */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		24FAA23F14B76CBA005D8027 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24FAA25E14B76D66005D8027 /* DataService.m in Sources */,
+				24FAA26014B76D66005D8027 /* HMAC.m in Sources */,
+				24FAA26214B76D66005D8027 /* TotoService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		24FAA24E14B76CBA005D8027 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		24FAA24F14B76CBA005D8027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		24FAA25114B76CBA005D8027 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/TotoClient.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		24FAA25214B76CBA005D8027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/TotoClient.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		24FAA23D14B76CBA005D8027 /* Build configuration list for PBXProject "TotoClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24FAA24E14B76CBA005D8027 /* Debug */,
+				24FAA24F14B76CBA005D8027 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24FAA25014B76CBA005D8027 /* Build configuration list for PBXNativeTarget "TotoClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24FAA25114B76CBA005D8027 /* Debug */,
+				24FAA25214B76CBA005D8027 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 24FAA23A14B76CBA005D8027 /* Project object */;
+}
