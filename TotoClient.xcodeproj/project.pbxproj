@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA24614B76CBA005D8027 /* Foundation.framework */; };
-		24FAA25514B76D43005D8027 /* libb64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA25314B76D43005D8027 /* libb64.a */; };
-		24FAA25614B76D43005D8027 /* libObjectiveBSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA25414B76D43005D8027 /* libObjectiveBSON.a */; };
 		24FAA25D14B76D66005D8027 /* DataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25714B76D66005D8027 /* DataService.h */; };
 		24FAA25E14B76D66005D8027 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25814B76D66005D8027 /* DataService.m */; };
 		24FAA25F14B76D66005D8027 /* HMAC.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25914B76D66005D8027 /* HMAC.h */; };
@@ -20,12 +18,48 @@
 		24FAA26614B76FD4005D8027 /* BSONSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA26514B76FD4005D8027 /* BSONSerialization.h */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		24FAA29B14B77C48005D8027 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24FAA29314B77C48005D8027 /* BSON.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24F5416414AD4513009B8EF7;
+			remoteInfo = BSON;
+		};
+		24FAA29D14B77C48005D8027 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24FAA29314B77C48005D8027 /* BSON.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24F5417414AD4513009B8EF7;
+			remoteInfo = BSONTests;
+		};
+		24FAA2A614B77C4F005D8027 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24FAA29F14B77C4F005D8027 /* b64.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24D8CF8D14B7648200AE31C1;
+			remoteInfo = b64;
+		};
+		24FAA2B714B77C72005D8027 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24FAA29314B77C48005D8027 /* BSON.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 24F5416314AD4513009B8EF7;
+			remoteInfo = BSON;
+		};
+		24FAA2B914B77C77005D8027 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24FAA29F14B77C4F005D8027 /* b64.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 24D8CF8C14B7648200AE31C1;
+			remoteInfo = b64;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		24FAA24314B76CBA005D8027 /* libTotoClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTotoClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FAA24614B76CBA005D8027 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24FAA24A14B76CBA005D8027 /* TotoClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TotoClient-Prefix.pch"; sourceTree = "<group>"; };
-		24FAA25314B76D43005D8027 /* libb64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libb64.a; path = lib/libb64.a; sourceTree = "<group>"; };
-		24FAA25414B76D43005D8027 /* libObjectiveBSON.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveBSON.a; path = lib/libObjectiveBSON.a; sourceTree = "<group>"; };
 		24FAA25714B76D66005D8027 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
 		24FAA25814B76D66005D8027 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
 		24FAA25914B76D66005D8027 /* HMAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMAC.h; sourceTree = "<group>"; };
@@ -34,6 +68,8 @@
 		24FAA25C14B76D66005D8027 /* TotoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotoService.m; sourceTree = "<group>"; };
 		24FAA26314B76FB8005D8027 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		24FAA26514B76FD4005D8027 /* BSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSONSerialization.h; sourceTree = "<group>"; };
+		24FAA29314B77C48005D8027 /* BSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BSON.xcodeproj; path = ObjectiveBSON/BSON.xcodeproj; sourceTree = "<group>"; };
+		24FAA29F14B77C4F005D8027 /* b64.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = b64.xcodeproj; path = libb64/b64.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,8 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24FAA25514B76D43005D8027 /* libb64.a in Frameworks */,
-				24FAA25614B76D43005D8027 /* libObjectiveBSON.a in Frameworks */,
 				24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,6 +87,8 @@
 		24FAA23814B76CBA005D8027 = {
 			isa = PBXGroup;
 			children = (
+				24FAA29F14B77C4F005D8027 /* b64.xcodeproj */,
+				24FAA29314B77C48005D8027 /* BSON.xcodeproj */,
 				24FAA24814B76CBA005D8027 /* TotoClient */,
 				24FAA24514B76CBA005D8027 /* Frameworks */,
 				24FAA24414B76CBA005D8027 /* Products */,
@@ -70,8 +106,6 @@
 		24FAA24514B76CBA005D8027 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				24FAA25314B76D43005D8027 /* libb64.a */,
-				24FAA25414B76D43005D8027 /* libObjectiveBSON.a */,
 				24FAA24614B76CBA005D8027 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -99,6 +133,23 @@
 				24FAA24A14B76CBA005D8027 /* TotoClient-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		24FAA29414B77C48005D8027 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				24FAA29C14B77C48005D8027 /* libBSON.a */,
+				24FAA29E14B77C48005D8027 /* BSONTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		24FAA2A014B77C4F005D8027 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				24FAA2A714B77C4F005D8027 /* libb64.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +181,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				24FAA2BA14B77C77005D8027 /* PBXTargetDependency */,
+				24FAA2B814B77C72005D8027 /* PBXTargetDependency */,
 			);
 			name = TotoClient;
 			productName = TotoClient;
@@ -155,12 +208,46 @@
 			mainGroup = 24FAA23814B76CBA005D8027;
 			productRefGroup = 24FAA24414B76CBA005D8027 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 24FAA2A014B77C4F005D8027 /* Products */;
+					ProjectRef = 24FAA29F14B77C4F005D8027 /* b64.xcodeproj */;
+				},
+				{
+					ProductGroup = 24FAA29414B77C48005D8027 /* Products */;
+					ProjectRef = 24FAA29314B77C48005D8027 /* BSON.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				24FAA24214B76CBA005D8027 /* TotoClient */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		24FAA29C14B77C48005D8027 /* libBSON.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBSON.a;
+			remoteRef = 24FAA29B14B77C48005D8027 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		24FAA29E14B77C48005D8027 /* BSONTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BSONTests.octest;
+			remoteRef = 24FAA29D14B77C48005D8027 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		24FAA2A714B77C4F005D8027 /* libb64.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libb64.a;
+			remoteRef = 24FAA2A614B77C4F005D8027 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		24FAA23F14B76CBA005D8027 /* Sources */ = {
@@ -174,6 +261,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		24FAA2B814B77C72005D8027 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BSON;
+			targetProxy = 24FAA2B714B77C72005D8027 /* PBXContainerItemProxy */;
+		};
+		24FAA2BA14B77C77005D8027 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = b64;
+			targetProxy = 24FAA2B914B77C77005D8027 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		24FAA24E14B76CBA005D8027 /* Debug */ = {
@@ -267,6 +367,7 @@
 				24FAA25214B76CBA005D8027 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
