@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		242C6A3514B78043007E4E9C /* libb64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA2A714B77C4F005D8027 /* libb64.a */; };
+		242C6A3614B78043007E4E9C /* libBSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA29C14B77C48005D8027 /* libBSON.a */; };
 		24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA24614B76CBA005D8027 /* Foundation.framework */; };
-		24FAA25D14B76D66005D8027 /* DataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25714B76D66005D8027 /* DataService.h */; };
+		24FAA25D14B76D66005D8027 /* DataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25714B76D66005D8027 /* DataService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24FAA25E14B76D66005D8027 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25814B76D66005D8027 /* DataService.m */; };
 		24FAA25F14B76D66005D8027 /* HMAC.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25914B76D66005D8027 /* HMAC.h */; };
 		24FAA26014B76D66005D8027 /* HMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25A14B76D66005D8027 /* HMAC.m */; };
-		24FAA26114B76D66005D8027 /* TotoService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25B14B76D66005D8027 /* TotoService.h */; };
+		24FAA26114B76D66005D8027 /* TotoService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25B14B76D66005D8027 /* TotoService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24FAA26214B76D66005D8027 /* TotoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25C14B76D66005D8027 /* TotoService.m */; };
-		24FAA26414B76FB8005D8027 /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA26314B76FB8005D8027 /* NSData+Base64.h */; };
-		24FAA26614B76FD4005D8027 /* BSONSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA26514B76FD4005D8027 /* BSONSerialization.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +66,6 @@
 		24FAA25A14B76D66005D8027 /* HMAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMAC.m; sourceTree = "<group>"; };
 		24FAA25B14B76D66005D8027 /* TotoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotoService.h; sourceTree = "<group>"; };
 		24FAA25C14B76D66005D8027 /* TotoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotoService.m; sourceTree = "<group>"; };
-		24FAA26314B76FB8005D8027 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		24FAA26514B76FD4005D8027 /* BSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSONSerialization.h; sourceTree = "<group>"; };
 		24FAA29314B77C48005D8027 /* BSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BSON.xcodeproj; path = ObjectiveBSON/BSON.xcodeproj; sourceTree = "<group>"; };
 		24FAA29F14B77C4F005D8027 /* b64.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = b64.xcodeproj; path = libb64/b64.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +75,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				242C6A3514B78043007E4E9C /* libb64.a in Frameworks */,
+				242C6A3614B78043007E4E9C /* libBSON.a in Frameworks */,
 				24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,8 +120,6 @@
 				24FAA25A14B76D66005D8027 /* HMAC.m */,
 				24FAA25B14B76D66005D8027 /* TotoService.h */,
 				24FAA25C14B76D66005D8027 /* TotoService.m */,
-				24FAA26314B76FB8005D8027 /* NSData+Base64.h */,
-				24FAA26514B76FD4005D8027 /* BSONSerialization.h */,
 				24FAA24914B76CBA005D8027 /* Supporting Files */,
 			);
 			path = TotoClient;
@@ -160,10 +158,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				24FAA25D14B76D66005D8027 /* DataService.h in Headers */,
-				24FAA25F14B76D66005D8027 /* HMAC.h in Headers */,
 				24FAA26114B76D66005D8027 /* TotoService.h in Headers */,
-				24FAA26414B76FB8005D8027 /* NSData+Base64.h in Headers */,
-				24FAA26614B76FD4005D8027 /* BSONSerialization.h in Headers */,
+				24FAA25F14B76D66005D8027 /* HMAC.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +318,10 @@
 				DSTROOT = /tmp/TotoClient.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					ObjectiveBSON/BSON,
+					"libb64/libb64-iOS",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
@@ -338,6 +338,10 @@
 				DSTROOT = /tmp/TotoClient.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					ObjectiveBSON/BSON,
+					"libb64/libb64-iOS",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
