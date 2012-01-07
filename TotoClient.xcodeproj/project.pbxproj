@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		242C6A3514B78043007E4E9C /* libb64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA2A714B77C4F005D8027 /* libb64.a */; };
+		24B113B814B7C805009884B3 /* libObjectiveBSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CB501814B7AEFF007445F9 /* libObjectiveBSON.a */; };
 		24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA24614B76CBA005D8027 /* Foundation.framework */; };
 		24FAA25D14B76D66005D8027 /* DataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25714B76D66005D8027 /* DataService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24FAA25E14B76D66005D8027 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25814B76D66005D8027 /* DataService.m */; };
@@ -18,6 +19,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		24B113B614B7C7FD009884B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 24F5416314AD4513009B8EF7;
+			remoteInfo = ObjectiveBSON;
+		};
 		24CB501714B7AEFF007445F9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */;
@@ -67,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24B113B814B7C805009884B3 /* libObjectiveBSON.a in Frameworks */,
 				242C6A3514B78043007E4E9C /* libb64.a in Frameworks */,
 				24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */,
 			);
@@ -168,6 +177,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				24B113B714B7C7FD009884B3 /* PBXTargetDependency */,
 				24FAA2BA14B77C77005D8027 /* PBXTargetDependency */,
 			);
 			name = TotoClient;
@@ -249,6 +259,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		24B113B714B7C7FD009884B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ObjectiveBSON;
+			targetProxy = 24B113B614B7C7FD009884B3 /* PBXContainerItemProxy */;
+		};
 		24FAA2BA14B77C77005D8027 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = b64;
