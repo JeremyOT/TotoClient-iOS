@@ -73,15 +73,14 @@
                  body:(NSData *)body
        receiveHandler:(void (^)(id, NSNumber *, NSDictionary*))receiveHandler
          errorHandler:(void (^)(NSError *))errorHandler {
-    if (!body) {
-        body = [NSData data];
-    }
     NSMutableDictionary *newHeaders = [NSMutableDictionary dictionaryWithDictionary:headers];
-    [newHeaders setObject:[NSString stringWithFormat:@"%d", [body length]] forKey:@"Content-Length"];
+    if (body) {
+        [newHeaders setObject:[NSString stringWithFormat:@"%d", [body length]] forKey:@"Content-Length"];
+    }
     [self requestWithURL:url
                   method:method
                  headers:newHeaders
-              bodyStream:[NSInputStream inputStreamWithData:body]
+              bodyStream:body ? [NSInputStream inputStreamWithData:body] : 0
           receiveHandler:receiveHandler
             errorHandler:errorHandler];
 }
