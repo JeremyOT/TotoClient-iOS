@@ -80,7 +80,7 @@
     [self requestWithURL:url
                   method:method
                  headers:newHeaders
-              bodyStream:body ? [NSInputStream inputStreamWithData:body] : 0
+              bodyStream:body ? [NSInputStream inputStreamWithData:body] : nil
           receiveHandler:receiveHandler
             errorHandler:errorHandler];
 }
