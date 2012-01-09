@@ -4,3 +4,6 @@
 [submodule "ObjectiveBSON"]
 	path = ObjectiveBSON
 	url = git://github.com/JeremyOT/ObjectiveBSON.git
+[submodule "json-framework"]
+	path = json-framework
+	url = git://github.com/stig/json-framework.git

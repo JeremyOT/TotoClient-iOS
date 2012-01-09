@@ -6,6 +6,7 @@
 #import "TotoService.h"
 #import "HMAC.h"
 #import "BSONSerialization.h"
+#import "SBJson.h"
 
 #define TOTO_USER_ID_KEY @"TOTO_USER_ID"
 #define TOTO_SESSION_ID_KEY @"TOTO_SESSION_ID"
@@ -130,7 +131,8 @@
         body = [[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] BSONRepresentation];
         headers = [NSMutableDictionary dictionaryWithObject:@"application/bson" forKey:@"content-type"];
     } else {
-        body = [NSJSONSerialization dataWithJSONObject:[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] options:0 error:nil];
+        
+        body = [[[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
         headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"content-type"];
     }
     if (self.sessionID) {
@@ -146,7 +148,7 @@
               if ([[headers objectForKey:@"content-type"] isEqualToString:@"application/bson"]) {
                   response = [responseData BSONValue];
               } else {
-                  response = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:nil];
+                  response = [responseData JSONValue];
               }
               NSDictionary *error = [response objectForKey:@"error"];
               if (error) {
