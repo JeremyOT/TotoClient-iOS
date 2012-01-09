@@ -148,7 +148,7 @@
               if ([[headers objectForKey:@"content-type"] isEqualToString:@"application/bson"]) {
                   response = [responseData BSONValue];
               } else {
-                  response = [responseData JSONValue];
+                  response = [[[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease] JSONValue];
               }
               NSDictionary *error = [response objectForKey:@"error"];
               if (error) {
