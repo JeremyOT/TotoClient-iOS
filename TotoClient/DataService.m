@@ -73,6 +73,9 @@
                  body:(NSData *)body
        receiveHandler:(void (^)(id, NSNumber *, NSDictionary*))receiveHandler
          errorHandler:(void (^)(NSError *))errorHandler {
+    if (!body) {
+        body = [NSData data];
+    }
     NSMutableDictionary *newHeaders = [NSMutableDictionary dictionaryWithDictionary:headers];
     [newHeaders setObject:[NSString stringWithFormat:@"%d", [body length]] forKey:@"Content-Length"];
     [self requestWithURL:url
