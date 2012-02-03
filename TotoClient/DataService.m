@@ -6,9 +6,15 @@
 
 @property (nonatomic, retain) NSMutableData *receivedData;
 @property (nonatomic, retain) NSURLConnection *urlConnection;
-@property (nonatomic, retain) NSDictionary *responseHeaders;
 @property (nonatomic, copy) void (^onReceiveBlock)(id, NSNumber*, NSDictionary*);
 @property (nonatomic, copy) void (^onErrorBlock)(NSError*);
+
+// Response properties: generate hidden setters
+@property(nonatomic, retain, readwrite) NSDictionary *responseHeaders;
+@property(nonatomic, readwrite) long long expectedContentLength;
+@property(nonatomic, retain, readwrite) NSString *textEncodingName;
+@property(nonatomic, retain, readwrite) NSString *MIMEType;
+@property(nonatomic, retain, readwrite) NSString *suggestedFilename;
 
 @end
 
@@ -22,6 +28,10 @@
 @synthesize onErrorBlock = _onErrorBlock;
 @synthesize inProgress = _inProgress;
 @synthesize responseHeaders = _responseHeaders;
+@synthesize expectedContentLength = _expectedContentLength;
+@synthesize textEncodingName = _textEncodingName;
+@synthesize MIMEType = _MIMEType;
+@synthesize suggestedFilename = _suggestedFilename;
 
 #pragma mark - Initialization
 
@@ -44,6 +54,10 @@
     self.onErrorBlock = errorHandler;
     self.requestURL = url;
     self.responseHeaders = nil;
+    self.expectedContentLength = 0;
+    self.textEncodingName = nil;
+    self.MIMEType = nil;
+    self.suggestedFilename = nil;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.requestURL cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
     for (NSString *header in headers) {
         [request addValue:[headers objectForKey:header] forHTTPHeaderField:header];
@@ -104,8 +118,13 @@
 #pragma mark - Receive
 
 - (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response{
-    self.statusCode = [(NSHTTPURLResponse*)response statusCode];
-    self.responseHeaders = [(NSHTTPURLResponse*)response allHeaderFields];
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+    self.statusCode = [httpResponse statusCode];
+    self.responseHeaders = [httpResponse allHeaderFields];
+    self.expectedContentLength = [httpResponse expectedContentLength];
+    self.textEncodingName = [httpResponse textEncodingName];
+    self.MIMEType = [httpResponse MIMEType];
+    self.suggestedFilename = [httpResponse suggestedFilename];
     [self.receivedData setLength:0];
 }
 
@@ -118,6 +137,10 @@
     self.receivedData = nil;
     self.onReceiveBlock = nil;
     self.responseHeaders = nil;
+    self.expectedContentLength = 0;
+    self.textEncodingName = nil;
+    self.MIMEType = nil;
+    self.suggestedFilename = nil;
     self.urlConnection = nil;
     if (self.onErrorBlock) {
         // Hold on to the block so that this DataService can be used for new requests in the callback.
@@ -146,6 +169,10 @@
     NSDictionary *responseHeaders = [self.responseHeaders retain];
     self.receivedData = nil;
     self.responseHeaders = nil;
+    self.expectedContentLength = 0;
+    self.textEncodingName = nil;
+    self.MIMEType = nil;
+    self.suggestedFilename = nil;
     if (self.onReceiveBlock) {
         void (^onReceiveBlock)(id, NSNumber*, NSDictionary*) = [self.onReceiveBlock retain];
         self.onReceiveBlock = nil;
@@ -167,6 +194,10 @@
     self.onReceiveBlock = nil;
     self.onErrorBlock = nil;
     self.responseHeaders = nil;
+    self.expectedContentLength = 0;
+    self.textEncodingName = nil;
+    self.MIMEType = nil;
+    self.suggestedFilename = nil;
     if (_inProgress) {
         [self release];
     }
@@ -180,6 +211,10 @@
     self.onErrorBlock = nil;
     self.urlConnection = nil;
     self.responseHeaders = nil;
+    self.expectedContentLength = 0;
+    self.textEncodingName = nil;
+    self.MIMEType = nil;
+    self.suggestedFilename = nil;
     [super dealloc];
 }
 
