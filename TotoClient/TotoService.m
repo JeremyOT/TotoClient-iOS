@@ -89,6 +89,7 @@
          additionalParameters:(NSDictionary *)parameters
                receiveHandler:(void (^)(id))receiveHandler
                  errorHandler:(void (^)(NSError *))errorHandler {
+    userID = [userID lowercaseString];
     NSMutableDictionary *authenticationParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
     [authenticationParameters setObject:userID forKey:@"user_id"];
     [authenticationParameters setObject:password forKey:@"password"];
@@ -106,6 +107,7 @@
           additionalParameters:(NSDictionary *)parameters
                 receiveHandler:(void (^)(id))receiveHandler
                   errorHandler:(void (^)(NSError *))errorHandler {
+    userID = [userID lowercaseString];
     NSMutableDictionary *authenticationParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
     [authenticationParameters setObject:userID forKey:@"user_id"];
     [authenticationParameters setObject:password forKey:@"password"];
