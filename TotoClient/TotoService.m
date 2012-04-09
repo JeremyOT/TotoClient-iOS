@@ -97,7 +97,6 @@
     [self totoRequestWithMethodName:@"account.login"
                          parameters:authenticationParameters
                      receiveHandler:^(id result) {
-                         [self setUserID:userID SessionID:[result objectForKey:@"session_id"] expires:[[result objectForKey:@"expires"] doubleValue]];
                          receiveHandler(result);
              } errorHandler:errorHandler];
 }
@@ -115,7 +114,6 @@
     [self totoRequestWithMethodName:@"account.create"
                          parameters:authenticationParameters
                      receiveHandler:^(id result) {
-                         [self setUserID:userID SessionID:[result objectForKey:@"session_id"] expires:[[result objectForKey:@"expires"] doubleValue]];
                          receiveHandler(result);
                      } errorHandler:errorHandler];
 }
@@ -137,7 +135,7 @@
         body = [[[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
         headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"content-type"];
     }
-    if (self.sessionID) {
+    if (self.sessionID && [self.userID length]) {
         [headers setObject:self.sessionID forKey:@"x-toto-session-id"];
         [headers setObject:[HMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
     }
@@ -171,8 +169,9 @@
                                                userInfo:[NSDictionary dictionaryWithObject:@"Invalid response HMAC" forKey:NSLocalizedDescriptionKey]]);
                   return;
               }
-              NSDictionary *result = [response objectForKey:@"result"];
-              receiveHandler(result);
+              NSDictionary *session = [response objectForKey:@"session"];
+              [self setUserID:[session objectForKey:@"user_id"] SessionID:[session objectForKey:@"session_id"] expires:[[session objectForKey:@"expires"] doubleValue]];
+              receiveHandler([response objectForKey:@"result"]);
           } errorHandler:errorHandler];
 }
 
