@@ -26,7 +26,7 @@
 
 @synthesize serviceURL = _serviceURL;
 @synthesize authenticationDelegate = _authenticationDelegate;
-#if NO_BSON || NO_JSON
+#if !defined NO_BSON && !defined NO_JSON
 @synthesize usesBSON = _usesBSON;
 #endif
 
@@ -43,7 +43,7 @@
 -(TotoService *)initWithURL:(NSURL *)url BSON:(BOOL)bson {
     if ((self = [super init])) {
         _serviceURL = [url copy];
-#if NO_BSON || NO_JSON
+#if !defined NO_BSON && !defined NO_JSON
         _usesBSON = bson;
 #endif
     }
@@ -131,21 +131,21 @@
     }
     NSData *body = nil;
     NSMutableDictionary *headers = nil;
-#if NO_BSON || NO_JSON
+#if !defined NO_BSON && !defined NO_JSON
     if (_usesBSON) {
 #endif
 #ifndef NO_BSON
         body = [[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] BSONRepresentation];
         headers = [NSMutableDictionary dictionaryWithObject:@"application/bson" forKey:@"content-type"];
 #endif
-#if NO_BSON || NO_JSON
+#if !defined NO_BSON && !defined NO_JSON
     } else {
 #endif
 #ifndef NO_JSON
         body = [[[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
         headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"content-type"];
 #endif
-#if NO_BSON || NO_JSON
+#if !defined NO_BSON && !defined NO_JSON
     }
 #endif
     if (self.sessionID && [self.userID length]) {
@@ -158,19 +158,19 @@
                     body:body
           receiveHandler:^(id responseData, NSNumber *status, NSDictionary *headers) {
               NSDictionary *response = nil;
-#if NO_BSON || NO_JSON
+#if !defined NO_BSON && !defined NO_JSON
               if ([[headers objectForKey:@"content-type"] isEqualToString:@"application/bson"]) {
 #endif
 #ifndef NO_BSON
                   response = [responseData BSONValue];
 #endif
-#if NO_BSON || NO_JSON
+#if !defined NO_BSON && !defined NO_JSON
               } else {
 #endif
 #ifndef NO_JSON
                   response = [[[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease] JSONValue];
 #endif
-#if NO_BSON || NO_JSON
+#if !defined NO_BSON && !defined NO_JSON
               }
 #endif
               NSDictionary *error = [response objectForKey:@"error"];

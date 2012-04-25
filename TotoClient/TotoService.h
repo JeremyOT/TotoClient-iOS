@@ -28,7 +28,7 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 @interface TotoService : DataService
 
 @property (readonly) NSURL *serviceURL;
-#if NO_BSON || NO_JSON
+#if !defined NO_BSON && !defined NO_JSON
 @property (nonatomic,assign) BOOL usesBSON;
 #endif
 @property (nonatomic,assign) id<TotoServiceAuthenticationDelegate> authenticationDelegate;
