@@ -5,8 +5,12 @@
 
 #import "TotoService.h"
 #import "HMAC.h"
+#ifndef NO_BSON
 #import "BSONSerialization.h"
+#endif
+#ifndef NO_JSON
 #import "SBJson.h"
+#endif
 
 #define TOTO_USER_ID_KEY @"TOTO_USER_ID"
 #define TOTO_SESSION_ID_KEY @"TOTO_SESSION_ID"
