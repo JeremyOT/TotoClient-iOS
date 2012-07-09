@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		242C6A3514B78043007E4E9C /* libb64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA2A714B77C4F005D8027 /* libb64.a */; };
-		24407F1B15AAC11E0047159A /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2499097914BB7F71004CDD99 /* libsbjson-ios.a */; };
 		24B113B814B7C805009884B3 /* libObjectiveBSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CB501814B7AEFF007445F9 /* libObjectiveBSON.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA24614B76CBA005D8027 /* Foundation.framework */; };
 		24FAA25D14B76D66005D8027 /* DataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25714B76D66005D8027 /* DataService.h */; settings = {ATTRIBUTES = (); }; };
@@ -20,41 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2499097414BB7F71004CDD99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2499096A14BB7F71004CDD99 /* SBJson.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BC12323D1391D5CC00131607;
-			remoteInfo = SBJson;
-		};
-		2499097614BB7F71004CDD99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2499096A14BB7F71004CDD99 /* SBJson.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BC1232521391D5CC00131607;
-			remoteInfo = SBJsonTests;
-		};
-		2499097814BB7F71004CDD99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2499096A14BB7F71004CDD99 /* SBJson.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BCC2626913920FC7003D9994;
-			remoteInfo = "sbjson-ios";
-		};
-		2499097A14BB7F71004CDD99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2499096A14BB7F71004CDD99 /* SBJson.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BCC2627313920FC7003D9994;
-			remoteInfo = "sbjson-iosTests";
-		};
-		24A2F16E15486DD500E582F7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2499096A14BB7F71004CDD99 /* SBJson.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BCC2626813920FC7003D9994;
-			remoteInfo = "sbjson-ios";
-		};
 		24A2F17015486DD800E582F7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */;
@@ -93,7 +57,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2499096A14BB7F71004CDD99 /* SBJson.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SBJson.xcodeproj; path = "json-framework/SBJson.xcodeproj"; sourceTree = "<group>"; };
 		24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveBSON.xcodeproj; path = ObjectiveBSON/ObjectiveBSON.xcodeproj; sourceTree = "<group>"; };
 		24FAA24314B76CBA005D8027 /* libTotoClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTotoClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FAA24614B76CBA005D8027 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -112,7 +75,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24407F1B15AAC11E0047159A /* libsbjson-ios.a in Frameworks */,
 				24B113B814B7C805009884B3 /* libObjectiveBSON.a in Frameworks */,
 				242C6A3514B78043007E4E9C /* libb64.a in Frameworks */,
 				24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */,
@@ -122,17 +84,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2499096B14BB7F71004CDD99 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2499097514BB7F71004CDD99 /* SBJson.framework */,
-				2499097714BB7F71004CDD99 /* SBJsonTests.octest */,
-				2499097914BB7F71004CDD99 /* libsbjson-ios.a */,
-				2499097B14BB7F71004CDD99 /* sbjson-iosTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		24CB501014B7AEFF007445F9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +97,6 @@
 			isa = PBXGroup;
 			children = (
 				24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */,
-				2499096A14BB7F71004CDD99 /* SBJson.xcodeproj */,
 				24FAA29F14B77C4F005D8027 /* b64.xcodeproj */,
 				24FAA24814B76CBA005D8027 /* TotoClient */,
 				24FAA24514B76CBA005D8027 /* Frameworks */,
@@ -228,7 +178,6 @@
 			);
 			dependencies = (
 				24A2F17115486DD800E582F7 /* PBXTargetDependency */,
-				24A2F16F15486DD500E582F7 /* PBXTargetDependency */,
 				24FAA2BA14B77C77005D8027 /* PBXTargetDependency */,
 			);
 			name = TotoClient;
@@ -264,10 +213,6 @@
 					ProductGroup = 24CB501014B7AEFF007445F9 /* Products */;
 					ProjectRef = 24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */;
 				},
-				{
-					ProductGroup = 2499096B14BB7F71004CDD99 /* Products */;
-					ProjectRef = 2499096A14BB7F71004CDD99 /* SBJson.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -277,34 +222,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		2499097514BB7F71004CDD99 /* SBJson.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SBJson.framework;
-			remoteRef = 2499097414BB7F71004CDD99 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2499097714BB7F71004CDD99 /* SBJsonTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SBJsonTests.octest;
-			remoteRef = 2499097614BB7F71004CDD99 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2499097914BB7F71004CDD99 /* libsbjson-ios.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libsbjson-ios.a";
-			remoteRef = 2499097814BB7F71004CDD99 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2499097B14BB7F71004CDD99 /* sbjson-iosTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "sbjson-iosTests.octest";
-			remoteRef = 2499097A14BB7F71004CDD99 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		24CB501814B7AEFF007445F9 /* libObjectiveBSON.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -342,11 +259,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		24A2F16F15486DD500E582F7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "sbjson-ios";
-			targetProxy = 24A2F16E15486DD500E582F7 /* PBXContainerItemProxy */;
-		};
 		24A2F17115486DD800E582F7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ObjectiveBSON;
@@ -360,178 +272,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		24A55C6515378C6B00D10341 /* Debug JSON */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				SDKROOT = iphoneos;
-			};
-			name = "Debug JSON";
-		};
-		24A55C6615378C6B00D10341 /* Debug JSON */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/TotoClient.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"NO_BSON=1",
-				);
-				HEADER_SEARCH_PATHS = (
-					"json-framework/**",
-					"ObjectiveBSON/**",
-					"libb64/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/lib\"",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = "Debug JSON";
-		};
-		24A55C6715378C7400D10341 /* Release JSON */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = "Release JSON";
-		};
-		24A55C6815378C7400D10341 /* Release JSON */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/TotoClient.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "NO_BSON=1";
-				HEADER_SEARCH_PATHS = (
-					"json-framework/**",
-					"ObjectiveBSON/**",
-					"libb64/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/lib\"",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = "Release JSON";
-		};
-		24A55C6915378C7D00D10341 /* Debug BSON */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				SDKROOT = iphoneos;
-			};
-			name = "Debug BSON";
-		};
-		24A55C6A15378C7D00D10341 /* Debug BSON */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/TotoClient.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"NO_JSON=1",
-				);
-				HEADER_SEARCH_PATHS = (
-					"json-framework/**",
-					"ObjectiveBSON/**",
-					"libb64/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/lib\"",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = "Debug BSON";
-		};
-		24A55C6B15378C8500D10341 /* Release BSON */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = "Release BSON";
-		};
-		24A55C6C15378C8500D10341 /* Release BSON */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/TotoClient.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "NO_JSON=1";
-				HEADER_SEARCH_PATHS = (
-					"json-framework/**",
-					"ObjectiveBSON/**",
-					"libb64/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/lib\"",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = "Release BSON";
-		};
 		24FAA24E14B76CBA005D8027 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -581,7 +321,6 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					"json-framework/**",
 					"ObjectiveBSON/**",
 					"libb64/**",
 				);
@@ -602,7 +341,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"json-framework/**",
 					"ObjectiveBSON/**",
 					"libb64/**",
 				);
@@ -623,11 +361,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24FAA24E14B76CBA005D8027 /* Debug */,
-				24A55C6915378C7D00D10341 /* Debug BSON */,
-				24A55C6515378C6B00D10341 /* Debug JSON */,
 				24FAA24F14B76CBA005D8027 /* Release */,
-				24A55C6B15378C8500D10341 /* Release BSON */,
-				24A55C6715378C7400D10341 /* Release JSON */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -636,11 +370,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24FAA25114B76CBA005D8027 /* Debug */,
-				24A55C6A15378C7D00D10341 /* Debug BSON */,
-				24A55C6615378C6B00D10341 /* Debug JSON */,
 				24FAA25214B76CBA005D8027 /* Release */,
-				24A55C6C15378C8500D10341 /* Release BSON */,
-				24A55C6815378C7400D10341 /* Release JSON */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

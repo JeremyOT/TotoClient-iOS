@@ -5,12 +5,7 @@
 
 #import "TotoService.h"
 #import "HMAC.h"
-#ifndef NO_BSON
 #import "BSONSerialization.h"
-#endif
-#if !defined NO_JSON && 50000 > __IPHONE_OS_VERSION_MIN_REQUIRED
-#import "SBJson.h"
-#endif
 
 #define TOTO_USER_ID_KEY @"TOTO_USER_ID"
 #define TOTO_SESSION_ID_KEY @"TOTO_SESSION_ID"
@@ -26,9 +21,7 @@
 
 @synthesize serviceURL = _serviceURL;
 @synthesize authenticationDelegate = _authenticationDelegate;
-#if !defined NO_BSON && !defined NO_JSON
 @synthesize usesBSON = _usesBSON;
-#endif
 
 #pragma mark - Lifecycle
 
@@ -43,9 +36,7 @@
 -(TotoService *)initWithURL:(NSURL *)url BSON:(BOOL)bson {
     if ((self = [super init])) {
         _serviceURL = [url copy];
-#if !defined NO_BSON && !defined NO_JSON
         _usesBSON = bson;
-#endif
     }
     return self;
 }
@@ -131,27 +122,14 @@
     }
     NSData *body = nil;
     NSMutableDictionary *headers = nil;
-#if !defined NO_BSON && !defined NO_JSON
     if (_usesBSON) {
-#endif
-#ifndef NO_BSON
         body = [[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] BSONRepresentation];
         headers = [NSMutableDictionary dictionaryWithObject:@"application/bson" forKey:@"content-type"];
-#endif
-#if !defined NO_BSON && !defined NO_JSON
     } else {
-#endif
-#ifndef NO_JSON
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 50000
         body = [NSJSONSerialization dataWithJSONObject:[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] options:0 error:NULL];
-#else
-        body = [[[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
-#endif
         headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"content-type"];
-#endif
-#if !defined NO_BSON && !defined NO_JSON
+
     }
-#endif
     if (self.sessionID && [self.userID length]) {
         [headers setObject:self.sessionID forKey:@"x-toto-session-id"];
         [headers setObject:[HMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
@@ -162,25 +140,11 @@
                     body:body
           receiveHandler:^(id responseData, NSNumber *status, NSDictionary *headers) {
               NSDictionary *response = nil;
-#if !defined NO_BSON && !defined NO_JSON
               if ([[headers objectForKey:@"content-type"] isEqualToString:@"application/bson"]) {
-#endif
-#ifndef NO_BSON
                   response = [responseData BSONValue];
-#endif
-#if !defined NO_BSON && !defined NO_JSON
               } else {
-#endif
-#ifndef NO_JSON
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 50000
                   response = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
-#else
-                  response = [[[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease] JSONValue];
-#endif
-#endif
-#if !defined NO_BSON && !defined NO_JSON
               }
-#endif
               NSDictionary *error = [response objectForKey:@"error"];
               if (error) {
                   NSInteger errorCode = [[error objectForKey:@"code"] integerValue];
