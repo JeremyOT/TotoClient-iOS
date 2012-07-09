@@ -33,6 +33,10 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 #endif
 @property (nonatomic,assign) id<TotoServiceAuthenticationDelegate> authenticationDelegate;
 
+@property (nonatomic, readonly) NSString *userID;
+@property (nonatomic, readonly) NSString *sessionID;
+@property (nonatomic, readonly) NSTimeInterval sessionExpires;
+
 +(TotoService*)serviceWithURL:(NSURL*)url;
 -(TotoService*)initWithURL:(NSURL*)url;
 +(TotoService*)serviceWithURL:(NSURL*)url BSON:(BOOL)bson;

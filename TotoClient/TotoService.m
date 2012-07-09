@@ -8,7 +8,7 @@
 #ifndef NO_BSON
 #import "BSONSerialization.h"
 #endif
-#ifndef NO_JSON
+#if !defined NO_JSON && 50000 > __IPHONE_OS_VERSION_MIN_REQUIRED
 #import "SBJson.h"
 #endif
 
@@ -17,10 +17,6 @@
 #define TOTO_SESSION_EXPIRES_KEY @"TOTO_SESSION_EXPIRES"
 
 @interface TotoService ()
-    
-@property (nonatomic, readonly) NSString *userID;
-@property (nonatomic, readonly) NSString *sessionID;
-@property (nonatomic, readonly) NSTimeInterval sessionExpires;
 
 -(void)setUserID:(NSString*)userID SessionID:(NSString*)sessionID expires:(NSTimeInterval)sessionExpires;
 
@@ -146,7 +142,11 @@
     } else {
 #endif
 #ifndef NO_JSON
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 50000
+        body = [NSJSONSerialization dataWithJSONObject:[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] options:0 error:NULL];
+#else
         body = [[[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
+#endif
         headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"content-type"];
 #endif
 #if !defined NO_BSON && !defined NO_JSON
@@ -172,7 +172,11 @@
               } else {
 #endif
 #ifndef NO_JSON
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 50000
+                  response = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
+#else
                   response = [[[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease] JSONValue];
+#endif
 #endif
 #if !defined NO_BSON && !defined NO_JSON
               }

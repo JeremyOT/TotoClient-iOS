@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		242C6A3514B78043007E4E9C /* libb64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA2A714B77C4F005D8027 /* libb64.a */; };
-		2499097E14BB7F95004CDD99 /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2499097914BB7F71004CDD99 /* libsbjson-ios.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		24407F1B15AAC11E0047159A /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2499097914BB7F71004CDD99 /* libsbjson-ios.a */; };
 		24B113B814B7C805009884B3 /* libObjectiveBSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CB501814B7AEFF007445F9 /* libObjectiveBSON.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA24614B76CBA005D8027 /* Foundation.framework */; };
 		24FAA25D14B76D66005D8027 /* DataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25714B76D66005D8027 /* DataService.h */; settings = {ATTRIBUTES = (); }; };
@@ -112,7 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2499097E14BB7F95004CDD99 /* libsbjson-ios.a in Frameworks */,
+				24407F1B15AAC11E0047159A /* libsbjson-ios.a in Frameworks */,
 				24B113B814B7C805009884B3 /* libObjectiveBSON.a in Frameworks */,
 				242C6A3514B78043007E4E9C /* libb64.a in Frameworks */,
 				24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */,
@@ -369,11 +369,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"NO_BSON=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -390,6 +386,11 @@
 				DSTROOT = /tmp/TotoClient.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"NO_BSON=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"json-framework/**",
 					"ObjectiveBSON/**",
@@ -412,7 +413,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "NO_BSON=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -429,6 +430,7 @@
 				DSTROOT = /tmp/TotoClient.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "NO_BSON=1";
 				HEADER_SEARCH_PATHS = (
 					"json-framework/**",
 					"ObjectiveBSON/**",
@@ -453,11 +455,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"NO_JSON=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -474,6 +472,11 @@
 				DSTROOT = /tmp/TotoClient.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"NO_JSON=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"json-framework/**",
 					"ObjectiveBSON/**",
@@ -496,7 +499,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "NO_JSON=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -513,6 +516,7 @@
 				DSTROOT = /tmp/TotoClient.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "NO_JSON=1";
 				HEADER_SEARCH_PATHS = (
 					"json-framework/**",
 					"ObjectiveBSON/**",
@@ -537,10 +541,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -558,6 +559,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -574,6 +576,10 @@
 				DSTROOT = /tmp/TotoClient.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"json-framework/**",
 					"ObjectiveBSON/**",
