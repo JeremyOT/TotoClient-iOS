@@ -45,18 +45,18 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 -(void)authenticateWithUserID:(NSString*)userID
                      password:(NSString*)password 
          additionalParameters:(NSDictionary *)parameters
-               receiveHandler:(void (^)(id))receiveHandler
-                 errorHandler:(void (^)(NSError*))errorHandler;
+               receiveHandler:(void (^)(id response))receiveHandler
+                 errorHandler:(void (^)(NSError *error))errorHandler;
 
 -(void)createAccountWithUserID:(NSString*)userID
                       password:(NSString*)password 
           additionalParameters:(NSDictionary *)parameters
-                receiveHandler:(void (^)(id))receiveHandler
-                  errorHandler:(void (^)(NSError*))errorHandler;
+                receiveHandler:(void (^)(id response))receiveHandler
+                  errorHandler:(void (^)(NSError *error))errorHandler;
 
 -(void)totoRequestWithMethodName:(NSString*)method
                       parameters:(id)parameters
-                  receiveHandler:(void (^)(id))receiveHandler
-                    errorHandler:(void (^)(NSError*))errorHandler;
+                  receiveHandler:(void (^)(id response))receiveHandler
+                    errorHandler:(void (^)(NSError *error))errorHandler;
 
 @end
