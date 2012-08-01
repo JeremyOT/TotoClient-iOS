@@ -42,6 +42,8 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 +(TotoService*)serviceWithURL:(NSURL*)url BSON:(BOOL)bson;
 -(TotoService*)initWithURL:(NSURL*)url BSON:(BOOL)bson;
 
+-(void)clearSession;
+
 -(void)authenticateWithUserID:(NSString*)userID
                      password:(NSString*)password 
          additionalParameters:(NSDictionary *)parameters

@@ -13,6 +13,8 @@
 
 @interface TotoService ()
 
+@property (nonatomic, retain) NSMutableDictionary *queuedRequests;
+
 -(void)setUserID:(NSString*)userID SessionID:(NSString*)sessionID expires:(NSTimeInterval)sessionExpires;
 
 @end
@@ -22,6 +24,7 @@
 @synthesize serviceURL = _serviceURL;
 @synthesize authenticationDelegate = _authenticationDelegate;
 @synthesize usesBSON = _usesBSON;
+@synthesize queuedRequests = _queuedRequests;
 
 #pragma mark - Lifecycle
 
@@ -47,6 +50,7 @@
 
 -(void)dealloc {
     [_serviceURL release];
+    [_queuedRequests release];
     [super dealloc];
 }
 
@@ -54,27 +58,134 @@
 
 -(NSString *)userID {
     if (self.sessionExpires > [[NSDate date] timeIntervalSince1970]) {
-        return [[NSUserDefaults standardUserDefaults] stringForKey:[TOTO_USER_ID_KEY stringByAppendingString:[_serviceURL path]]];
+        return [[NSUserDefaults standardUserDefaults] stringForKey:[TOTO_USER_ID_KEY stringByAppendingString:[_serviceURL absoluteString]]];
     }
     return nil;
 }
 
 -(NSTimeInterval)sessionExpires {
-    return [[NSUserDefaults standardUserDefaults] doubleForKey:[TOTO_SESSION_EXPIRES_KEY stringByAppendingString:[_serviceURL path]]];
+    return [[NSUserDefaults standardUserDefaults] doubleForKey:[TOTO_SESSION_EXPIRES_KEY stringByAppendingString:[_serviceURL absoluteString]]];
 }
 
 -(NSString *)sessionID {
     if (self.sessionExpires > [[NSDate date] timeIntervalSince1970]) {
-        return [[NSUserDefaults standardUserDefaults] stringForKey:[TOTO_SESSION_ID_KEY stringByAppendingString:[_serviceURL path]]];
+        return [[NSUserDefaults standardUserDefaults] stringForKey:[TOTO_SESSION_ID_KEY stringByAppendingString:[_serviceURL absoluteString]]];
     }
     return nil;
 }
 
 -(void)setUserID:(NSString*)userID SessionID:(NSString*)sessionID expires:(NSTimeInterval)sessionExpires {
-    [[NSUserDefaults standardUserDefaults] setValue:userID forKey:[TOTO_USER_ID_KEY stringByAppendingString:[_serviceURL path]]];
-    [[NSUserDefaults standardUserDefaults] setValue:sessionID forKey:[TOTO_SESSION_ID_KEY stringByAppendingString:[_serviceURL path]]];
-    [[NSUserDefaults standardUserDefaults] setDouble:sessionExpires forKey:[TOTO_SESSION_EXPIRES_KEY stringByAppendingString:[_serviceURL path]]];
+    [[NSUserDefaults standardUserDefaults] setValue:userID forKey:[TOTO_USER_ID_KEY stringByAppendingString:[_serviceURL absoluteString]]];
+    [[NSUserDefaults standardUserDefaults] setValue:sessionID forKey:[TOTO_SESSION_ID_KEY stringByAppendingString:[_serviceURL absoluteString]]];
+    [[NSUserDefaults standardUserDefaults] setDouble:sessionExpires forKey:[TOTO_SESSION_EXPIRES_KEY stringByAppendingString:[_serviceURL absoluteString]]];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Authentication
+
+-(void)clearSession {
+    [self setUserID:nil SessionID:nil expires:0];
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [cookieStorage cookiesForURL:_serviceURL]) {
+        NSLog(@"Clearing Cookie: %@", cookie);
+        [cookieStorage deleteCookie:cookie];
+    }
+}
+
+#pragma mark - Batching
+
+-(NSMutableDictionary *)queuedRequests {
+    if (!_queuedRequests) {
+        _queuedRequests = [[NSMutableDictionary alloc] init];
+    }
+    return _queuedRequests;
+}
+
+-(NSUInteger)queuedRequestCount {
+    return [_queuedRequests count];
+}
+
+-(void)clearRequestQueue {
+    [_queuedRequests removeAllObjects];
+}
+
+-(void)queueRequestWithID:(NSString*)requestID
+               methodName:(NSString *)method
+               parameters:(id)parameters
+           receiveHandler:(void (^)(id))receiveHandler
+             errorHandler:(void (^)(NSError *))errorHandler {
+    if (!parameters) {
+        parameters = [NSDictionary dictionary];
+    }
+    [self.queuedRequests setObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                    method, @"method",
+                                    parameters, @"parameters",
+                                    receiveHandler, @"receiveHandler",
+                                    errorHandler, @"errorHandler",
+                                    nil] forKey:requestID];
+}
+
+-(void)batchRequest:(void(^)())completeHandler {
+    NSDictionary *requests = [_queuedRequests retain];
+    self.queuedRequests = nil;
+    NSMutableDictionary *batch = [NSMutableDictionary dictionaryWithCapacity:[requests count]];
+    for (NSString *requestID in requests) {
+        [batch setObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                          [[requests objectForKey:requestID] objectForKey:@"method"], @"method",
+                          [[requests objectForKey:requestID] objectForKey:@"parameters"], @"parameters",
+                          nil] forKey:@"batch"];
+    }
+    NSData *body = nil;
+    NSMutableDictionary *headers = nil;
+    if (_usesBSON) {
+        body = [batch BSONRepresentation];
+        headers = [NSMutableDictionary dictionaryWithObject:@"application/bson" forKey:@"content-type"];
+    } else {
+        body = [NSJSONSerialization dataWithJSONObject:batch options:0 error:NULL];
+        headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"content-type"];
+    }
+    if (self.sessionID && [self.userID length]) {
+        [headers setObject:self.sessionID forKey:@"x-toto-session-id"];
+        [headers setObject:[HMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
+    }
+    [self requestWithURL:self.serviceURL
+                  method:@"POST"
+                 headers:headers
+                    body:body
+          receiveHandler:^(id responseData, NSNumber *status, NSDictionary *headers) {
+              NSDictionary *response = nil;
+              if ([[headers objectForKey:@"content-type"] isEqualToString:@"application/bson"]) {
+                  response = [responseData BSONValue];
+              } else {
+                  response = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
+              }
+              if ([headers objectForKey:@"x-toto-hmac"] && self.userID &&
+                  ![[HMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:responseData] isEqualToString:[headers objectForKey:@"x-toto-hmac"]]) {
+                  NSError *error = [NSError errorWithDomain:@"TotoServiceError"
+                                                       code:TOTO_ERROR_INVALID_RESPONSE_HMAC
+                                                   userInfo:[NSDictionary dictionaryWithObject:@"Invalid response HMAC" forKey:NSLocalizedDescriptionKey]];
+                  for (NSString *requestID in requests) {
+                      void (^errorHandler)(NSError *) = [[requests objectForKey:requestID] objectForKey:@""];
+                      errorHandler(error);
+                  }
+                  if (completeHandler) {
+                      completeHandler();
+                  }
+                  return;
+              }
+              NSDictionary *session = [response objectForKey:@"session"];
+              [self setUserID:[session objectForKey:@"user_id"] SessionID:[session objectForKey:@"session_id"] expires:[[session objectForKey:@"expires"] doubleValue]];
+              //Handle Responses
+              
+          } errorHandler:^(NSError *error) {
+              for (NSString *requestID in requests) {
+                  void (^errorHandler)(NSError *) = [[requests objectForKey:requestID] objectForKey:@""];
+                  errorHandler(error);
+              }
+              if (completeHandler) {
+                  completeHandler();
+              }
+          }];
 }
 
 #pragma mark - Requests
@@ -166,7 +277,9 @@
               }
               NSDictionary *session = [response objectForKey:@"session"];
               [self setUserID:[session objectForKey:@"user_id"] SessionID:[session objectForKey:@"session_id"] expires:[[session objectForKey:@"expires"] doubleValue]];
-              receiveHandler([response objectForKey:@"result"]);
+              if (receiveHandler) {
+                  receiveHandler([response objectForKey:@"result"]);
+              }
           } errorHandler:errorHandler];
 }
 
