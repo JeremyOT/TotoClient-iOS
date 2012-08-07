@@ -191,7 +191,7 @@
 		24FAA23A14B76CBA005D8027 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = JOT;
 			};
 			buildConfigurationList = 24FAA23D14B76CBA005D8027 /* Build configuration list for PBXProject "TotoClient" */;
