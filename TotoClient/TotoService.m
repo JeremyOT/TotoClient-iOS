@@ -251,7 +251,7 @@
                     body:body
           receiveHandler:^(id responseData, NSNumber *status, NSDictionary *headers) {
               NSDictionary *response = nil;
-              if ([[headers objectForKey:@"content-type"] isEqualToString:@"application/bson"]) {
+              if ([[headers objectForKey:@"content-type"] hasPrefix:@"application/bson"]) {
                   response = [responseData BSONValue];
               } else {
                   response = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
