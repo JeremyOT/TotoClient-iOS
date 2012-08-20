@@ -126,22 +126,23 @@
 }
 
 -(void)batchRequest:(void(^)())completeHandler {
-    NSDictionary *requests = [_queuedRequests retain];
+    NSDictionary *requests = [[_queuedRequests retain] autorelease];
     self.queuedRequests = nil;
     NSMutableDictionary *batch = [NSMutableDictionary dictionaryWithCapacity:[requests count]];
     for (NSString *requestID in requests) {
         [batch setObject:[NSDictionary dictionaryWithObjectsAndKeys:
                           [[requests objectForKey:requestID] objectForKey:@"method"], @"method",
                           [[requests objectForKey:requestID] objectForKey:@"parameters"], @"parameters",
-                          nil] forKey:@"batch"];
+                          nil] forKey:requestID];
     }
+    NSDictionary *requestBody = [NSDictionary dictionaryWithObject:batch forKey:@"batch"];
     NSData *body = nil;
     NSMutableDictionary *headers = nil;
     if (_usesBSON) {
-        body = [batch BSONRepresentation];
+        body = [requestBody BSONRepresentation];
         headers = [NSMutableDictionary dictionaryWithObject:@"application/bson" forKey:@"content-type"];
     } else {
-        body = [NSJSONSerialization dataWithJSONObject:batch options:0 error:NULL];
+        body = [NSJSONSerialization dataWithJSONObject:requestBody options:0 error:NULL];
         headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"content-type"];
     }
     if (self.sessionID && [self.userID length]) {
@@ -153,11 +154,11 @@
                  headers:headers
                     body:body
           receiveHandler:^(id responseData, NSNumber *status, NSDictionary *headers) {
-              NSDictionary *response = nil;
-              if ([[headers objectForKey:@"content-type"] isEqualToString:@"application/bson"]) {
-                  response = [responseData BSONValue];
+              NSDictionary *batchResponse = nil;
+              if ([[headers objectForKey:@"content-type"] hasPrefix:@"application/bson"]) {
+                  batchResponse = [responseData BSONValue];
               } else {
-                  response = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
+                  batchResponse = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
               }
               if ([headers objectForKey:@"x-toto-hmac"] && self.userID &&
                   ![[HMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:responseData] isEqualToString:[headers objectForKey:@"x-toto-hmac"]]) {
@@ -165,22 +166,45 @@
                                                        code:TOTO_ERROR_INVALID_RESPONSE_HMAC
                                                    userInfo:[NSDictionary dictionaryWithObject:@"Invalid response HMAC" forKey:NSLocalizedDescriptionKey]];
                   for (NSString *requestID in requests) {
-                      void (^errorHandler)(NSError *) = [[requests objectForKey:requestID] objectForKey:@""];
-                      errorHandler(error);
+                      void (^errorHandler)(NSError *) = [[requests objectForKey:requestID] objectForKey:@"errorHandler"];
+                      if (errorHandler) {
+                          errorHandler(error);
+                      }
                   }
                   if (completeHandler) {
                       completeHandler();
                   }
                   return;
               }
-              NSDictionary *session = [response objectForKey:@"session"];
+              NSDictionary *session = [batchResponse objectForKey:@"session"];
               [self setUserID:[session objectForKey:@"user_id"] SessionID:[session objectForKey:@"session_id"] expires:[[session objectForKey:@"expires"] doubleValue]];
-              //Handle Responses
-              
+              for (NSString *responseID in batchResponse) {
+                  NSDictionary *response = [batchResponse objectForKey:responseID];
+                  NSDictionary *result = [response objectForKey:@"result"];
+                  if (result) {
+                      void (^receiveHandler)(id, NSNumber*, NSDictionary*) = [[requests objectForKey:responseID] objectForKey:@"receiveHandler"];
+                      if (receiveHandler) {
+                          receiveHandler(result, status, headers);
+                      }
+                  } else {
+                      NSDictionary *error = [response objectForKey:@"error"];
+                      void (^errorHandler)(NSError *) = [[requests objectForKey:responseID] objectForKey:@"errorHandler"];
+                      if (errorHandler) {
+                          errorHandler([response objectForKey:@"error"] ? [NSError errorWithDomain:@"TotoServiceError"
+                                                                                             code:[[error objectForKey:@"code"] integerValue]
+                                                                                         userInfo:[NSDictionary dictionaryWithObject:[error objectForKey:@"value"] forKey:NSLocalizedDescriptionKey]] : nil);
+                      }
+                  }
+              }
+              if (completeHandler) {
+                  completeHandler();
+              }
           } errorHandler:^(NSError *error) {
               for (NSString *requestID in requests) {
-                  void (^errorHandler)(NSError *) = [[requests objectForKey:requestID] objectForKey:@""];
-                  errorHandler(error);
+                  void (^errorHandler)(NSError *) = [[requests objectForKey:requestID] objectForKey:@"errorHandler"];
+                  if (errorHandler) {
+                      errorHandler(error);
+                  }
               }
               if (completeHandler) {
                   completeHandler();

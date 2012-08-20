@@ -36,6 +36,7 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 @property (nonatomic, readonly) NSString *userID;
 @property (nonatomic, readonly) NSString *sessionID;
 @property (nonatomic, readonly) NSTimeInterval sessionExpires;
+@property (nonatomic, readonly) NSUInteger queuedRequestCount;
 
 +(TotoService*)serviceWithURL:(NSURL*)url;
 -(TotoService*)initWithURL:(NSURL*)url;
@@ -60,5 +61,15 @@ requiresAuthenticationForMethodName:(NSString*)methodName
                       parameters:(id)parameters
                   receiveHandler:(void (^)(id response))receiveHandler
                     errorHandler:(void (^)(NSError *error))errorHandler;
+
+-(void)batchRequest:(void(^)())completeHandler;
+
+-(void)queueRequestWithID:(NSString*)requestID
+               methodName:(NSString *)method
+               parameters:(id)parameters
+           receiveHandler:(void (^)(id))receiveHandler
+             errorHandler:(void (^)(NSError *))errorHandler;
+
+-(void)clearRequestQueue;
 
 @end
