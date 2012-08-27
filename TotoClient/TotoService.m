@@ -118,10 +118,10 @@
         parameters = [NSDictionary dictionary];
     }
     [self.queuedRequests setObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    method, @"method",
-                                    parameters, @"parameters",
-                                    receiveHandler, @"receiveHandler",
-                                    errorHandler, @"errorHandler",
+                                    [[method copy] autorelease], @"method",
+                                    [[parameters copy] autorelease], @"parameters",
+                                    [[receiveHandler copy] autorelease], @"receiveHandler",
+                                    [[errorHandler copy] autorelease], @"errorHandler",
                                     nil] forKey:requestID];
 }
 
@@ -178,8 +178,9 @@
               }
               NSDictionary *session = [batchResponse objectForKey:@"session"];
               [self setUserID:[session objectForKey:@"user_id"] SessionID:[session objectForKey:@"session_id"] expires:[[session objectForKey:@"expires"] doubleValue]];
-              for (NSString *responseID in batchResponse) {
-                  NSDictionary *response = [batchResponse objectForKey:responseID];
+              NSDictionary *responses = [batchResponse objectForKey:@"batch"];
+              for (NSString *responseID in responses) {
+                  NSDictionary *response = [responses objectForKey:responseID];
                   NSDictionary *result = [response objectForKey:@"result"];
                   if (result) {
                       void (^receiveHandler)(id, NSNumber*, NSDictionary*) = [[requests objectForKey:responseID] objectForKey:@"receiveHandler"];

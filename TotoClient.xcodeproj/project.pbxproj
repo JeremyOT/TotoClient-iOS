@@ -12,7 +12,7 @@
 		24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA24614B76CBA005D8027 /* Foundation.framework */; };
 		24FAA25D14B76D66005D8027 /* DataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25714B76D66005D8027 /* DataService.h */; settings = {ATTRIBUTES = (); }; };
 		24FAA25E14B76D66005D8027 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25814B76D66005D8027 /* DataService.m */; };
-		24FAA25F14B76D66005D8027 /* HMAC.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25914B76D66005D8027 /* HMAC.h */; };
+		24FAA25F14B76D66005D8027 /* HMAC.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25914B76D66005D8027 /* HMAC.h */; settings = {ATTRIBUTES = (); }; };
 		24FAA26014B76D66005D8027 /* HMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25A14B76D66005D8027 /* HMAC.m */; };
 		24FAA26114B76D66005D8027 /* TotoService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25B14B76D66005D8027 /* TotoService.h */; settings = {ATTRIBUTES = (); }; };
 		24FAA26214B76D66005D8027 /* TotoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25C14B76D66005D8027 /* TotoService.m */; };
@@ -289,6 +289,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -306,6 +307,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
