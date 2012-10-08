@@ -179,7 +179,7 @@
               NSDictionary *session = [batchResponse objectForKey:@"session"];
               [self setUserID:[session objectForKey:@"user_id"] SessionID:[session objectForKey:@"session_id"] expires:[[session objectForKey:@"expires"] doubleValue]];
               NSDictionary *responses = [batchResponse objectForKey:@"batch"];
-              for (NSString *responseID in responses) {
+              for (NSString *responseID in [[responses allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]) {
                   NSDictionary *response = [responses objectForKey:responseID];
                   NSDictionary *result = [response objectForKey:@"result"];
                   if (result) {
