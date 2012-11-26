@@ -1,8 +1,13 @@
-#import "DataService.h"
+//
+//  Created by Jeremy Olmsted-Thompson on 12/21/11.
+//  Copyright (c) 2011 JOT. All rights reserved.
+//
 
-#define DATA_SERVICE_DOMAIN @"DataService"
+#import "TCDataService.h"
 
-@interface DataService ()
+#define TC_DATA_SERVICE_DOMAIN @"TCDataService"
+
+@interface TCDataService ()
 
 @property (nonatomic, retain) NSMutableData *receivedData;
 @property (nonatomic, retain) NSURLConnection *urlConnection;
@@ -18,7 +23,7 @@
 
 @end
 
-@implementation DataService
+@implementation TCDataService
 
 @synthesize requestURL = _requestURL;
 @synthesize statusCode = _statusCode;
@@ -35,8 +40,8 @@
 
 #pragma mark - Initialization
 
-+ (DataService*)service{
-    return [[[DataService alloc] init] autorelease];
++ (TCDataService*)service{
+    return [[[TCDataService alloc] init] autorelease];
 }
 
 #pragma mark - Request
@@ -75,7 +80,7 @@
         self.receivedData = [NSMutableData data];
     } else {
         NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:@"Failed to create connection" forKey:NSLocalizedDescriptionKey];
-        self.onErrorBlock([NSError errorWithDomain:DATA_SERVICE_DOMAIN code:0 userInfo:errorInfo]);
+        self.onErrorBlock([NSError errorWithDomain:TC_DATA_SERVICE_DOMAIN code:0 userInfo:errorInfo]);
         self.urlConnection = nil;
         [self release];
     }
@@ -155,10 +160,10 @@
 - (void)connectionDidFinishLoading:(NSURLConnection*)connection{
     _inProgress = NO;
     // check to see if the status code is an error code and react appropriately
-    if (self.statusCode / 100 == RESPONSE_CLIENT_ERROR / 100 || self.statusCode / 100 == RESPONSE_SERVER_ERROR / 100) {
+    if (self.statusCode / 100 == TC_RESPONSE_CLIENT_ERROR / 100 || self.statusCode / 100 == TC_RESPONSE_SERVER_ERROR / 100) {
         NSString *errorString = [[[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding] autorelease];
         NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
-        NSError *error = [NSError errorWithDomain:DATA_SERVICE_DOMAIN code:self.statusCode userInfo:errorInfo];
+        NSError *error = [NSError errorWithDomain:TC_DATA_SERVICE_DOMAIN code:self.statusCode userInfo:errorInfo];
         [self connection:connection didFailWithError:error];
         return;
     }

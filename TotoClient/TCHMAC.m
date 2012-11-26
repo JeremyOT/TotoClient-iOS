@@ -1,16 +1,13 @@
 //
-//  HMAC.m
-//  FanStand
-//
 //  Created by Jeremy Olmsted-Thompson on 12/21/11.
 //  Copyright (c) 2011 JOT. All rights reserved.
 //
 
-#import "HMAC.h"
+#import "TCHMAC.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSData+Base64.h"
 
-@implementation HMAC
+@implementation TCHMAC
 
 +(NSData*)SHA1DigestWithKey:(NSData*)key data:(NSData*)data {
     unsigned char hmac[CC_SHA1_DIGEST_LENGTH];
@@ -19,12 +16,12 @@
 }
 
 +(NSString*)SHA1HexDigestWithKey:(NSData*)key data:(NSData*)data {
-    NSString *hmac = [[HMAC SHA1DigestWithKey:key data:data] description];
+    NSString *hmac = [[TCHMAC SHA1DigestWithKey:key data:data] description];
     return [[hmac substringWithRange:NSMakeRange(1, [hmac length] - 2)] stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 
 +(NSString *)SHA1Base64DigestWithKey:(NSData *)key data:(NSData *)data {
-    NSString *hmac = [[HMAC SHA1DigestWithKey:key data:data] stringByBase64Encoding];
+    NSString *hmac = [[TCHMAC SHA1DigestWithKey:key data:data] stringByBase64Encoding];
     return hmac;
 }
 

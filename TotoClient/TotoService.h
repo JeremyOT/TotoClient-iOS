@@ -3,7 +3,7 @@
 //  Copyright (c) 2011 JOT. All rights reserved.
 //
 
-#import "DataService.h"
+#import "TCDataService.h"
 
 #define TOTO_ERROR_SERVER 1000
 #define TOTO_ERROR_MISSING_METHOD 1002
@@ -25,7 +25,7 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 
 @end
 
-@interface TotoService : DataService
+@interface TotoService : TCDataService
 
 @property (readonly) NSURL *serviceURL;
 #if !defined NO_BSON && !defined NO_JSON
@@ -63,6 +63,11 @@ requiresAuthenticationForMethodName:(NSString*)methodName
                     errorHandler:(void (^)(NSError *error))errorHandler;
 
 -(void)batchRequest:(void(^)())completeHandler;
+
+-(void)queueRequestWithMethodName:(NSString*)method
+                       parameters:(id)parameters
+                   receiveHandler:(void (^)(id))receiveHandler
+                     errorHandler:(void (^)(NSError *))errorHandler;
 
 -(void)queueRequestWithID:(NSString*)requestID
                methodName:(NSString *)method

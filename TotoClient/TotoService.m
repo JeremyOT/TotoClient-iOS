@@ -4,8 +4,9 @@
 //
 
 #import "TotoService.h"
-#import "HMAC.h"
+#import "TCHMAC.h"
 #import "BSONSerialization.h"
+#import "TCUUID.h"
 
 #define TOTO_USER_ID_KEY @"TOTO_USER_ID"
 #define TOTO_SESSION_ID_KEY @"TOTO_SESSION_ID"
@@ -109,6 +110,13 @@
     [_queuedRequests removeAllObjects];
 }
 
+-(void)queueRequestWithMethodName:(NSString*)method
+                       parameters:(id)parameters
+                   receiveHandler:(void (^)(id))receiveHandler
+                     errorHandler:(void (^)(NSError *))errorHandler {
+    [self queueRequestWithID:[TCUUID generateUUID] methodName:method parameters:parameters receiveHandler:receiveHandler errorHandler:errorHandler];
+}
+
 -(void)queueRequestWithID:(NSString*)requestID
                methodName:(NSString *)method
                parameters:(id)parameters
@@ -147,7 +155,7 @@
     }
     if (self.sessionID && [self.userID length]) {
         [headers setObject:self.sessionID forKey:@"x-toto-session-id"];
-        [headers setObject:[HMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
+        [headers setObject:[TCHMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
     }
     [self requestWithURL:self.serviceURL
                   method:@"POST"
@@ -161,7 +169,7 @@
                   batchResponse = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
               }
               if ([headers objectForKey:@"x-toto-hmac"] && self.userID &&
-                  ![[HMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:responseData] isEqualToString:[headers objectForKey:@"x-toto-hmac"]]) {
+                  ![[TCHMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:responseData] isEqualToString:[headers objectForKey:@"x-toto-hmac"]]) {
                   NSError *error = [NSError errorWithDomain:@"TotoServiceError"
                                                        code:TOTO_ERROR_INVALID_RESPONSE_HMAC
                                                    userInfo:[NSDictionary dictionaryWithObject:@"Invalid response HMAC" forKey:NSLocalizedDescriptionKey]];
@@ -268,7 +276,7 @@
     }
     if (self.sessionID && [self.userID length]) {
         [headers setObject:self.sessionID forKey:@"x-toto-session-id"];
-        [headers setObject:[HMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
+        [headers setObject:[TCHMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
     }
     [self requestWithURL:self.serviceURL
                   method:@"POST"
@@ -294,7 +302,7 @@
                   return;
               }
               if ([headers objectForKey:@"x-toto-hmac"] && self.userID &&
-                  ![[HMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:responseData] isEqualToString:[headers objectForKey:@"x-toto-hmac"]]) {
+                  ![[TCHMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:responseData] isEqualToString:[headers objectForKey:@"x-toto-hmac"]]) {
                   errorHandler([NSError errorWithDomain:@"TotoServiceError"
                                                    code:TOTO_ERROR_INVALID_RESPONSE_HMAC
                                                userInfo:[NSDictionary dictionaryWithObject:@"Invalid response HMAC" forKey:NSLocalizedDescriptionKey]]);

@@ -1,10 +1,15 @@
+//
+//  Created by Jeremy Olmsted-Thompson on 12/21/11.
+//  Copyright (c) 2011 JOT. All rights reserved.
+//
+
 #import <Foundation/Foundation.h>
 
-#define RESPONSE_OK 200
-#define RESPONSE_CLIENT_ERROR 400
-#define RESPONSE_SERVER_ERROR 500
+#define TC_RESPONSE_OK 200
+#define TC_RESPONSE_CLIENT_ERROR 400
+#define TC_RESPONSE_SERVER_ERROR 500
 
-@interface DataService : NSObject <NSURLConnectionDelegate>
+@interface TCDataService : NSObject <NSURLConnectionDelegate>
 
 @property(nonatomic,retain) NSURL *requestURL;
 @property(nonatomic) NSInteger statusCode;
@@ -17,7 +22,7 @@
 @property(nonatomic, retain, readonly) NSString *MIMEType;
 @property(nonatomic, retain, readonly) NSString *suggestedFilename;
 
-+ (DataService*)service;
++ (TCDataService*)service;
 
 -(void)requestWithURL:(NSURL*)url
                method:(NSString*)method
