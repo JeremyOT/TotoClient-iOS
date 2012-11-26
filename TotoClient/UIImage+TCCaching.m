@@ -9,11 +9,16 @@
 
 @implementation UIImage (TCCaching)
 
++(void)setCacheDirectory:(NSString *)directoryName {
+    [TCImageCacheDirectory release];
+    TCImageCacheDirectory = [directoryName copy];
+}
+
 +(NSString*)cachePath {
     static NSString *cachePath;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        cachePath = [[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"toto_images"] retain];
+        cachePath = [[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:TCImageCacheDirectory] retain];
         [[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:nil];
     });
     return cachePath;
