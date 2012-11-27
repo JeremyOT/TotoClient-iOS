@@ -7,6 +7,7 @@
 #import "TCHMAC.h"
 #import "BSONSerialization.h"
 #import "TCUUID.h"
+#import "NSURL+TCQuery.h"
 
 #define TOTO_USER_ID_KEY @"TOTO_USER_ID"
 #define TOTO_SESSION_ID_KEY @"TOTO_SESSION_ID"
@@ -261,6 +262,14 @@
                       parameters:(id)parameters
                   receiveHandler:(void (^)(id))receiveHandler
                     errorHandler:(void (^)(NSError *))errorHandler {
+    [self totoRequestWithMethodName:method parameters:parameters useQueryParameters:NO receiveHandler:receiveHandler errorHandler:errorHandler];
+}
+
+-(void)totoRequestWithMethodName:(NSString *)method
+                      parameters:(id)parameters
+              useQueryParameters:(BOOL)useQueryParameters
+                  receiveHandler:(void (^)(id))receiveHandler
+                    errorHandler:(void (^)(NSError *))errorHandler {
     if (!parameters) {
         parameters = [NSDictionary dictionary];
     }
@@ -278,10 +287,10 @@
         [headers setObject:self.sessionID forKey:@"x-toto-session-id"];
         [headers setObject:[TCHMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
     }
-    [self requestWithURL:self.serviceURL
-                  method:@"POST"
+    [self requestWithURL:useQueryParameters ? [[_serviceURL URLByAppendingPathComponent:[method stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] URLByAppendingQueryParameters:parameters] : _serviceURL
+                  method:useQueryParameters ? @"GET" : @"POST"
                  headers:headers
-                    body:body
+                    body:useQueryParameters ? nil : body
           receiveHandler:^(id responseData, NSNumber *status, NSDictionary *headers) {
               NSDictionary *response = nil;
               if ([[headers objectForKey:@"content-type"] hasPrefix:@"application/bson"]) {

@@ -62,6 +62,12 @@ requiresAuthenticationForMethodName:(NSString*)methodName
                   receiveHandler:(void (^)(id response))receiveHandler
                     errorHandler:(void (^)(NSError *error))errorHandler;
 
+-(void)totoRequestWithMethodName:(NSString*)method
+                      parameters:(id)parameters
+              useQueryParameters:(BOOL)useQueryParameters
+                  receiveHandler:(void (^)(id response))receiveHandler
+                    errorHandler:(void (^)(NSError *error))errorHandler;
+
 -(void)batchRequest:(void(^)())completeHandler;
 
 -(void)queueRequestWithMethodName:(NSString*)method

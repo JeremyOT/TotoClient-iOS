@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2407CBE71664B9B50083A489 /* NSURL+TCQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 2407CBE51664B9B50083A489 /* NSURL+TCQuery.h */; };
+		2407CBE81664B9B50083A489 /* NSURL+TCQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2407CBE61664B9B50083A489 /* NSURL+TCQuery.m */; };
 		2411C78A16631B1B00A87011 /* TCUUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 2411C78816631B1A00A87011 /* TCUUID.h */; };
 		2411C78B16631B1B00A87011 /* TCUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 2411C78916631B1A00A87011 /* TCUUID.m */; };
 		2411C8001663244800A87011 /* TCAsyncImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2411C7F81663244800A87011 /* TCAsyncImageView.h */; };
@@ -67,6 +69,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2407CBE51664B9B50083A489 /* NSURL+TCQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TCQuery.h"; sourceTree = "<group>"; };
+		2407CBE61664B9B50083A489 /* NSURL+TCQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TCQuery.m"; sourceTree = "<group>"; };
 		2411C78816631B1A00A87011 /* TCUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUUID.h; sourceTree = "<group>"; };
 		2411C78916631B1A00A87011 /* TCUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUUID.m; sourceTree = "<group>"; };
 		2411C7F81663244800A87011 /* TCAsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAsyncImageView.h; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 				24FAA25A14B76D66005D8027 /* TCHMAC.m */,
 				2411C78816631B1A00A87011 /* TCUUID.h */,
 				2411C78916631B1A00A87011 /* TCUUID.m */,
+				2407CBE51664B9B50083A489 /* NSURL+TCQuery.h */,
+				2407CBE61664B9B50083A489 /* NSURL+TCQuery.m */,
 				24FAA25B14B76D66005D8027 /* TotoService.h */,
 				24FAA25C14B76D66005D8027 /* TotoService.m */,
 				24FAA24914B76CBA005D8027 /* Supporting Files */,
@@ -195,6 +201,7 @@
 				2411C8021663244800A87011 /* UIImage+TCCaching.h in Headers */,
 				2411C8041663244800A87011 /* NSString+TCHash.h in Headers */,
 				2411C8061663244800A87011 /* TCDelayedDispatcher.h in Headers */,
+				2407CBE71664B9B50083A489 /* NSURL+TCQuery.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +300,7 @@
 				2411C8031663244800A87011 /* UIImage+TCCaching.m in Sources */,
 				2411C8051663244800A87011 /* NSString+TCHash.m in Sources */,
 				2411C8071663244800A87011 /* TCDelayedDispatcher.m in Sources */,
+				2407CBE81664B9B50083A489 /* NSURL+TCQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
