@@ -83,6 +83,14 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+-(void)setSessionData:(NSDictionary *)sessionData {
+    [self setUserID:sessionData[@"user_id"] SessionID:sessionData[@"session_id"] expires:[sessionData[@"expires"] doubleValue]];
+}
+
+-(NSDictionary *)sessionData {
+    return @{@"user_id": self.userID, @"session_id": self.sessionID, @"expires": [NSNumber numberWithDouble:self.sessionExpires]};
+}
+
 #pragma mark - Authentication
 
 -(void)clearSession {
@@ -186,7 +194,9 @@
                   return;
               }
               NSDictionary *session = [batchResponse objectForKey:@"session"];
-              [self setUserID:[session objectForKey:@"user_id"] SessionID:[session objectForKey:@"session_id"] expires:[[session objectForKey:@"expires"] doubleValue]];
+              if (session) {
+                  self.sessionData = session;
+              }
               NSDictionary *responses = [batchResponse objectForKey:@"batch"];
               for (NSString *responseID in [[responses allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]) {
                   NSDictionary *response = [responses objectForKey:responseID];
@@ -318,7 +328,9 @@
                   return;
               }
               NSDictionary *session = [response objectForKey:@"session"];
-              [self setUserID:[session objectForKey:@"user_id"] SessionID:[session objectForKey:@"session_id"] expires:[[session objectForKey:@"expires"] doubleValue]];
+              if (session) {
+                  self.sessionData = session;
+              }
               if (receiveHandler) {
                   receiveHandler([response objectForKey:@"result"]);
               }

@@ -37,6 +37,7 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 @property (nonatomic, readonly) NSString *sessionID;
 @property (nonatomic, readonly) NSTimeInterval sessionExpires;
 @property (nonatomic, readonly) NSUInteger queuedRequestCount;
+@property (nonatomic, strong) NSDictionary *sessionData;
 
 +(TotoService*)serviceWithURL:(NSURL*)url;
 -(TotoService*)initWithURL:(NSURL*)url;
