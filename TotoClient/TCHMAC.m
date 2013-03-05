@@ -21,7 +21,7 @@
 }
 
 +(NSString *)SHA1Base64DigestWithKey:(NSData *)key data:(NSData *)data {
-    NSString *hmac = [[TCHMAC SHA1DigestWithKey:key data:data] stringByBase64Encoding];
+    NSString *hmac = [[[TCHMAC SHA1DigestWithKey:key data:data] stringByBase64Encoding] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return hmac;
 }
 
