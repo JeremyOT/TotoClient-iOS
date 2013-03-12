@@ -5,8 +5,6 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString *TCImageCacheDirectory = @"toto_images";
-
 @interface UIImage (TCCaching)
 
 +(void)setCacheDirectory:(NSString*)directoryName;

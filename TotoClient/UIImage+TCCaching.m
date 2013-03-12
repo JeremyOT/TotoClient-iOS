@@ -7,6 +7,8 @@
 #import "NSString+TCHash.h"
 #import "TCDataService.h"
 
+static NSString *TCImageCacheDirectory = @"toto_images";
+
 @implementation UIImage (TCCaching)
 
 +(void)setCacheDirectory:(NSString *)directoryName {
