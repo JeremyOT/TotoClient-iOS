@@ -56,6 +56,29 @@
     [super dealloc];
 }
 
+#pragma mark - Default Properties
+
++(NSMutableDictionary*)defaultRequestHeaders {
+    static NSMutableDictionary *defaultRequestHeaders = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        defaultRequestHeaders = [[NSMutableDictionary alloc] init];
+    });
+    return defaultRequestHeaders;
+}
+
++(void)setDefaultRequestHeader:(NSString*)value forKey:(NSString*)key {
+    [[self defaultRequestHeaders] setObject:value forKey:key];
+}
+
++(NSString*)defaultRequestHeaderForKey:(NSString*)key {
+    return [self defaultRequestHeaders][key];
+}
+
++(NSDictionary*)allDefaultRequestHeaders {
+    return [NSDictionary dictionaryWithDictionary:[self defaultRequestHeaders]];
+}
+
 #pragma mark - Properties
 
 -(NSString *)userID {
@@ -272,11 +295,27 @@
                       parameters:(id)parameters
                   receiveHandler:(void (^)(id))receiveHandler
                     errorHandler:(void (^)(NSError *))errorHandler {
-    [self totoRequestWithMethodName:method parameters:parameters useQueryParameters:NO receiveHandler:receiveHandler errorHandler:errorHandler];
+    [self totoRequestWithMethodName:method parameters:parameters headers:nil useQueryParameters:NO receiveHandler:receiveHandler errorHandler:errorHandler];
 }
 
 -(void)totoRequestWithMethodName:(NSString *)method
                       parameters:(id)parameters
+                         headers:(NSDictionary*)headers
+                  receiveHandler:(void (^)(id))receiveHandler
+                    errorHandler:(void (^)(NSError *))errorHandler {
+    [self totoRequestWithMethodName:method parameters:parameters useQueryParameters:NO receiveHandler:receiveHandler errorHandler:errorHandler];
+}
+-(void)totoRequestWithMethodName:(NSString *)method
+                      parameters:(id)parameters
+              useQueryParameters:(BOOL)useQueryParameters
+                  receiveHandler:(void (^)(id))receiveHandler
+                    errorHandler:(void (^)(NSError *))errorHandler {
+    [self totoRequestWithMethodName:method parameters:parameters headers:nil useQueryParameters:useQueryParameters receiveHandler:receiveHandler errorHandler:errorHandler];
+}
+
+-(void)totoRequestWithMethodName:(NSString *)method
+                      parameters:(id)parameters
+                         headers:(NSDictionary*)headers
               useQueryParameters:(BOOL)useQueryParameters
                   receiveHandler:(void (^)(id))receiveHandler
                     errorHandler:(void (^)(NSError *))errorHandler {
@@ -284,22 +323,25 @@
         parameters = [NSDictionary dictionary];
     }
     NSData *body = nil;
-    NSMutableDictionary *headers = nil;
+    NSMutableDictionary *requestHeaders = [NSMutableDictionary dictionaryWithDictionary:[[self class] defaultRequestHeaders]];
+    if (headers) {
+        [requestHeaders setValuesForKeysWithDictionary:headers];
+    }
     if (_usesBSON) {
         body = [[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] BSONRepresentation];
-        headers = [NSMutableDictionary dictionaryWithObject:@"application/bson" forKey:@"content-type"];
+        [requestHeaders setObject:@"application/bson" forKey:@"content-type"];
     } else {
         body = [NSJSONSerialization dataWithJSONObject:[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] options:0 error:NULL];
-        headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"content-type"];
+        [requestHeaders setObject:@"application/json" forKey:@"content-type"];
 
     }
     if (self.sessionID && [self.userID length]) {
-        [headers setObject:self.sessionID forKey:@"x-toto-session-id"];
-        [headers setObject:[TCHMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
+        [requestHeaders setObject:self.sessionID forKey:@"x-toto-session-id"];
+        [requestHeaders setObject:[TCHMAC SHA1Base64DigestWithKey:[self.userID dataUsingEncoding:NSUTF8StringEncoding] data:body] forKey:@"x-toto-hmac"];
     }
     [self requestWithURL:useQueryParameters ? [[_serviceURL URLByAppendingPathComponent:[method stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] URLByAppendingQueryParameters:parameters] : _serviceURL
                   method:useQueryParameters ? @"GET" : @"POST"
-                 headers:headers
+                 headers:requestHeaders
                     body:useQueryParameters ? nil : body
           receiveHandler:^(id responseData, NSNumber *status, NSDictionary *headers) {
               NSDictionary *response = nil;

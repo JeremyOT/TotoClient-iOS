@@ -39,6 +39,10 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 @property (nonatomic, readonly) NSUInteger queuedRequestCount;
 @property (nonatomic, strong) NSDictionary *sessionData;
 
++(void)setDefaultRequestHeader:(NSString*)value forKey:(NSString*)key;
++(NSString*)defaultRequestHeaderForKey:(NSString*)key;
++(NSDictionary*)allDefaultRequestHeaders;
+
 +(TotoService*)serviceWithURL:(NSURL*)url;
 -(TotoService*)initWithURL:(NSURL*)url;
 +(TotoService*)serviceWithURL:(NSURL*)url BSON:(BOOL)bson;
@@ -63,11 +67,24 @@ requiresAuthenticationForMethodName:(NSString*)methodName
                   receiveHandler:(void (^)(id response))receiveHandler
                     errorHandler:(void (^)(NSError *error))errorHandler;
 
+-(void)totoRequestWithMethodName:(NSString *)method
+                      parameters:(id)parameters
+                         headers:(NSDictionary*)headers
+                  receiveHandler:(void (^)(id))receiveHandler
+                    errorHandler:(void (^)(NSError *))errorHandler;
+
 -(void)totoRequestWithMethodName:(NSString*)method
                       parameters:(id)parameters
               useQueryParameters:(BOOL)useQueryParameters
                   receiveHandler:(void (^)(id response))receiveHandler
                     errorHandler:(void (^)(NSError *error))errorHandler;
+
+-(void)totoRequestWithMethodName:(NSString *)method
+                      parameters:(id)parameters
+                         headers:(NSDictionary*)headers
+              useQueryParameters:(BOOL)useQueryParameters
+                  receiveHandler:(void (^)(id))receiveHandler
+                    errorHandler:(void (^)(NSError *))errorHandler;
 
 -(void)batchRequest:(void(^)())completeHandler;
 
