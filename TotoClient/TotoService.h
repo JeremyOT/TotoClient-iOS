@@ -37,7 +37,9 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 @property (nonatomic, readonly) NSString *sessionID;
 @property (nonatomic, readonly) NSTimeInterval sessionExpires;
 @property (nonatomic, readonly) NSUInteger queuedRequestCount;
-@property (nonatomic, strong) NSDictionary *sessionData;
+@property (nonatomic, retain) NSDictionary *sessionData;
+@property (nonatomic, copy) void (^preflightHandler)(NSData *requestBody, NSMutableDictionary *headers);
+@property (nonatomic, assign) BOOL signsRequests;
 
 +(void)setDefaultRequestHeader:(NSString*)value forKey:(NSString*)key;
 +(NSString*)defaultRequestHeaderForKey:(NSString*)key;
