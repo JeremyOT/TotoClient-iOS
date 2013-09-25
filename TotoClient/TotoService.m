@@ -204,7 +204,7 @@
               if ([[headers objectForKey:@"content-type"] hasPrefix:@"application/bson"]) {
                   batchResponse = [responseData BSONValue];
               } else {
-                  batchResponse = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
+                  batchResponse = [NSJSONSerialization JSONObjectWithData:responseData options:_JSONReadingOptions error:NULL];
               }
               NSDictionary *session = [batchResponse objectForKey:@"session"];
               if (session) {
@@ -343,7 +343,7 @@
               if ([[headers objectForKey:@"content-type"] hasPrefix:@"application/bson"]) {
                   response = [responseData BSONValue];
               } else {
-                  response = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:nil];
+                  response = [NSJSONSerialization JSONObjectWithData:responseData options:_JSONReadingOptions error:nil];
               }
               NSDictionary *responseError = [response objectForKey:@"error"];
               if (responseError) {

@@ -40,6 +40,7 @@ requiresAuthenticationForMethodName:(NSString*)methodName
 @property (nonatomic, retain) NSDictionary *sessionData;
 @property (nonatomic, copy) void (^preflightHandler)(NSData *requestBody, NSMutableDictionary *headers);
 @property (nonatomic, assign) BOOL signsRequests;
+@property (nonatomic, assign) NSJSONReadingOptions JSONReadingOptions;
 
 +(void)setDefaultRequestHeader:(NSString*)value forKey:(NSString*)key;
 +(NSString*)defaultRequestHeaderForKey:(NSString*)key;
