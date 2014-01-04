@@ -4,7 +4,7 @@
 //
 
 #import "TCAsyncImageView.h"
-#import "UIImage+TCCaching.h"
+#import "TCDataCache.h"
 #import "TCDelayedDispatcher.h"
 
 @interface TCAsyncImageView ()
@@ -19,6 +19,7 @@
 -(void)initialize {
     self.indicatorStyle = UIActivityIndicatorViewStyleGray;
     self.dispatcher = [TCDelayedDispatcher dispatcher];
+    self.imageCache = [TCDataCache sharedCache];
 }
 
 -(id)initWithFrame:(CGRect)frame {
@@ -51,6 +52,7 @@
 
 -(void)dealloc {
     [_dispatcher release];
+    [_imageCache release];
     [super dealloc];
 }
 
@@ -67,7 +69,7 @@
         [self addSubview:self.indicatorView];
     }
     NSTimeInterval token = [_dispatcher updateToken];
-    [UIImage imageFromURL:url block:^(UIImage *image){
+    [self imageFromURL:url block:^(UIImage *image){
         if (![_dispatcher isValidToken:token])
             return;
         [self.indicatorView removeFromSuperview];
@@ -78,6 +80,10 @@
             self.image = fallbackImage;
         }
     }];
+}
+
+-(void)imageFromURL:(NSURL*)url block:(void (^)(UIImage *image))block {
+    [_imageCache imageFromURL:url block:block];
 }
 
 @end
