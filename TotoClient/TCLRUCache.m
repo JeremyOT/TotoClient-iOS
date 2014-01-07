@@ -62,7 +62,6 @@
 
 -(void)trimToCapacity {
     if ([_orderedEntries count] <= _capacity) return;
-    NSLog(@"Trim cache");
     @synchronized(self) {
         [_orderedEntries sortUsingSelector:@selector(compare:)];
         while ([_orderedEntries count] > _capacity) {
@@ -86,7 +85,6 @@
     @synchronized(self) {
         TCLRUCacheEntry *entry = [_cacheDictionary objectForKey:key];
         entry.timestamp = [[NSDate date] timeIntervalSince1970];
-        if (!entry.value) NSLog(@"Cache miss");
         return entry.value;
     }
 }
@@ -108,9 +106,6 @@
             [_cacheDictionary setObject:entry forKey:key];
             [_orderedEntries addObject:entry];
             newEntry = YES;
-        }
-        if (!entry.value) {
-            NSLog(@"Cache add");
         }
         entry.key = key;
         entry.value = object;

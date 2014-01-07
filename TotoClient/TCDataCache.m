@@ -40,7 +40,6 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
     @synchronized(self) {
         TCDataCache *cache = [[self sharedCaches] objectForKey:name];
         if (cache) return cache;
-        NSLog(@"Created %@: %@", [self class], name);
         cache = [[[self alloc] initWithPathInCachesDirectory:name] autorelease];
         [[self sharedCaches] setObject:cache forKey:name];
         return cache;
@@ -106,7 +105,6 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
 -(void)imageFromURL:(NSURL *)url ignoreCache:(BOOL)ignoreCache block:(void (^)(UIImage *))block {
     UIImage *memoryCachedImage = [_lruCache objectForKey:url];
     if (memoryCachedImage) {
-        NSLog(@"From cache: %@", memoryCachedImage);
         block(memoryCachedImage);
         return;
     }
