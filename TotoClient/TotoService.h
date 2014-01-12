@@ -21,7 +21,11 @@
 
 -(void)totoService:(TotoService*)service
 requiresAuthenticationForMethodName:(NSString*)methodName
-    withParameters:(id)parameters;
+        parameters:(id)parameters
+           headers:(NSDictionary*)headers
+useQueryParameters:(BOOL)useQueryParameters
+    receiveHandler:(void (^)(id))receiveHandler
+      errorHandler:(void (^)(NSError *))errorHandler;
 
 @end
 

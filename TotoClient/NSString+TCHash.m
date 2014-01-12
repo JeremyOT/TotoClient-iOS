@@ -11,7 +11,7 @@
 -(NSData*)dataWithSHA256Hash {
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
     unsigned char buffer[CC_SHA256_DIGEST_LENGTH];
-    CC_SHA256([data bytes], [data length], buffer);
+    CC_SHA256([data bytes], (CC_LONG)[data length], buffer);
     return [NSData dataWithBytes:buffer length:CC_SHA256_DIGEST_LENGTH];
 }
 

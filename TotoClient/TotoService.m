@@ -349,7 +349,8 @@
               if (responseError) {
                   NSInteger errorCode = [[responseError objectForKey:@"code"] integerValue];
                   if (self.authenticationDelegate && (errorCode == TOTO_ERROR_INVALID_SESSION_ID || errorCode == TOTO_ERROR_NOT_AUTHORIZED)) {
-                      [self.authenticationDelegate totoService:self requiresAuthenticationForMethodName:method withParameters:parameters];
+                      [self clearSession];
+                      [self.authenticationDelegate totoService:self requiresAuthenticationForMethodName:method parameters:parameters headers:headers useQueryParameters:useQueryParameters receiveHandler:receiveHandler errorHandler:errorHandler];
                   } else if (errorHandler) {
                       errorHandler([NSError errorWithDomain:@"TotoServiceError"
                                                        code:errorCode

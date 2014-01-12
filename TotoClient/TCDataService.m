@@ -94,7 +94,7 @@
          errorHandler:(void (^)(NSError *))errorHandler {
     NSMutableDictionary *newHeaders = [NSMutableDictionary dictionaryWithDictionary:headers];
     if (body) {
-        [newHeaders setObject:[NSString stringWithFormat:@"%d", [body length]] forKey:@"Content-Length"];
+        [newHeaders setObject:[NSString stringWithFormat:@"%lu", (unsigned long)[body length]] forKey:@"Content-Length"];
     }
     [self requestWithURL:url
                   method:method

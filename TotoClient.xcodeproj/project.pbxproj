@@ -17,7 +17,6 @@
 		2411C8051663244800A87011 /* NSString+TCHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2411C7FD1663244800A87011 /* NSString+TCHash.m */; };
 		2411C8061663244800A87011 /* TCDelayedDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 2411C7FE1663244800A87011 /* TCDelayedDispatcher.h */; };
 		2411C8071663244800A87011 /* TCDelayedDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2411C7FF1663244800A87011 /* TCDelayedDispatcher.m */; };
-		242C6A3514B78043007E4E9C /* libb64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA2A714B77C4F005D8027 /* libb64.a */; };
 		245A81D81878A33D00065E1E /* TCDataCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 245A81D61878A33D00065E1E /* TCDataCache.h */; };
 		245A81D91878A33D00065E1E /* TCDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 245A81D71878A33D00065E1E /* TCDataCache.m */; };
 		245A81DD1878B37600065E1E /* TCLRUCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 245A81DB1878B37600065E1E /* TCLRUCache.h */; };
@@ -54,20 +53,6 @@
 			remoteGlobalIDString = 24F5417414AD4513009B8EF7;
 			remoteInfo = ObjectiveBSONTests;
 		};
-		24FAA2A614B77C4F005D8027 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 24FAA29F14B77C4F005D8027 /* b64.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 24D8CF8D14B7648200AE31C1;
-			remoteInfo = b64;
-		};
-		24FAA2B914B77C77005D8027 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 24FAA29F14B77C4F005D8027 /* b64.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 24D8CF8C14B7648200AE31C1;
-			remoteInfo = b64;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -95,7 +80,6 @@
 		24FAA25A14B76D66005D8027 /* TCHMAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHMAC.m; sourceTree = "<group>"; };
 		24FAA25B14B76D66005D8027 /* TotoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotoService.h; sourceTree = "<group>"; };
 		24FAA25C14B76D66005D8027 /* TotoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotoService.m; sourceTree = "<group>"; };
-		24FAA29F14B77C4F005D8027 /* b64.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = b64.xcodeproj; path = libb64/b64.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +88,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				24B113B814B7C805009884B3 /* libObjectiveBSON.a in Frameworks */,
-				242C6A3514B78043007E4E9C /* libb64.a in Frameworks */,
 				24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */,
-				24FAA29F14B77C4F005D8027 /* b64.xcodeproj */,
 				24FAA24814B76CBA005D8027 /* TotoClient */,
 				24FAA24514B76CBA005D8027 /* Frameworks */,
 				24FAA24414B76CBA005D8027 /* Products */,
@@ -184,14 +166,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		24FAA2A014B77C4F005D8027 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				24FAA2A714B77C4F005D8027 /* libb64.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -227,7 +201,6 @@
 			);
 			dependencies = (
 				24A2F17115486DD800E582F7 /* PBXTargetDependency */,
-				24FAA2BA14B77C77005D8027 /* PBXTargetDependency */,
 			);
 			name = TotoClient;
 			productName = TotoClient;
@@ -240,7 +213,7 @@
 		24FAA23A14B76CBA005D8027 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = JOT;
 			};
 			buildConfigurationList = 24FAA23D14B76CBA005D8027 /* Build configuration list for PBXProject "TotoClient" */;
@@ -254,10 +227,6 @@
 			productRefGroup = 24FAA24414B76CBA005D8027 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
-				{
-					ProductGroup = 24FAA2A014B77C4F005D8027 /* Products */;
-					ProjectRef = 24FAA29F14B77C4F005D8027 /* b64.xcodeproj */;
-				},
 				{
 					ProductGroup = 24CB501014B7AEFF007445F9 /* Products */;
 					ProjectRef = 24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */;
@@ -283,13 +252,6 @@
 			fileType = wrapper.cfbundle;
 			path = ObjectiveBSONTests.octest;
 			remoteRef = 24CB501914B7AEFF007445F9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		24FAA2A714B77C4F005D8027 /* libb64.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libb64.a;
-			remoteRef = 24FAA2A614B77C4F005D8027 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -320,11 +282,6 @@
 			name = ObjectiveBSON;
 			targetProxy = 24A2F17015486DD800E582F7 /* PBXContainerItemProxy */;
 		};
-		24FAA2BA14B77C77005D8027 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = b64;
-			targetProxy = 24FAA2B914B77C77005D8027 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -332,7 +289,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -340,10 +303,15 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -353,15 +321,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
@@ -371,7 +349,6 @@
 		24FAA25114B76CBA005D8027 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				DSTROOT = /tmp/TotoClient.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
@@ -396,7 +373,6 @@
 		24FAA25214B76CBA005D8027 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				DSTROOT = /tmp/TotoClient.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TotoClient/TotoClient-Prefix.pch";
