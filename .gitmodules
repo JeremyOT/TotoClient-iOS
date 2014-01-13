@@ -1,6 +1,3 @@
-[submodule "libb64"]
-	path = libb64
-	url = git://github.com/JeremyOT/libb64-iOS.git
 [submodule "ObjectiveBSON"]
 	path = ObjectiveBSON
 	url = git://github.com/JeremyOT/ObjectiveBSON.git
