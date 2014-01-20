@@ -61,6 +61,7 @@
 }
 
 -(void)setImageWithURL:(NSURL*)url fallbackImage:(UIImage*)fallbackImage {
+    if (!url) return;
     if (!self.indicatorView) {
         self.indicatorView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.indicatorStyle] autorelease];
         self.indicatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
