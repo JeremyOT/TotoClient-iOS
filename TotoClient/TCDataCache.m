@@ -123,7 +123,7 @@ typedef void (^ImageCallback)(UIImage*);
             callbacks = [NSMutableArray array];
             [_imageCallbackBlocks setObject:callbacks forKey:url];
         }
-        [callbacks addObject:[block copy]];
+        [callbacks addObject:[[block copy] autorelease]];
     });
     return first;
 }
@@ -131,7 +131,7 @@ typedef void (^ImageCallback)(UIImage*);
 -(void)runCallbacksWithImage:(UIImage*)image forUrl:(NSURL*)url {
     __block NSArray *callbacks = nil;
     dispatch_sync(_lockQueue, ^{
-        callbacks = [[_imageCallbackBlocks objectForKey:url] copy];
+        callbacks = [[_imageCallbackBlocks objectForKey:url] retain];
         [_imageCallbackBlocks removeObjectForKey:url];
     });
     if ([NSThread isMainThread]) {
@@ -145,6 +145,7 @@ typedef void (^ImageCallback)(UIImage*);
             }
         });
     }
+    [callbacks release];
 }
 
 -(void)imageFromURL:(NSURL *)url ignoreCache:(BOOL)ignoreCache block:(ImageCallback)block {
