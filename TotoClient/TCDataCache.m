@@ -174,7 +174,7 @@ typedef void (^ImageCallback)(UIImage*);
 }
 
 -(NSUInteger)cacheCostForImage:(UIImage*)image {
-    return image.size.height * image.size.width * 4;
+    return (image.size.height * image.scale) * (image.size.width * image.scale) * 4;
 }
 
 @end
