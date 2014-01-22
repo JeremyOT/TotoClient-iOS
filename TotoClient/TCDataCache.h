@@ -13,6 +13,7 @@ static const NSUInteger TCDefaultMemoryCacheCapacity;
 @interface TCDataCache : NSObject
 
 @property (nonatomic, copy, readonly) NSString *cachePath;
+@property (nonatomic, retain) NSRunLoop *runLoop;
 @property (nonatomic) NSUInteger memoryCacheCapacity;
 
 +(TCDataCache*)sharedCache;

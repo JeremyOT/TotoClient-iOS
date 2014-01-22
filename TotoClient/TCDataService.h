@@ -21,6 +21,7 @@
 @property(nonatomic, retain, readonly) NSString *textEncodingName;
 @property(nonatomic, retain, readonly) NSString *MIMEType;
 @property(nonatomic, retain, readonly) NSString *suggestedFilename;
+@property(nonatomic, retain) NSRunLoop *runLoop;
 
 + (TCDataService*)service;
 

@@ -57,7 +57,7 @@ typedef void (^ImageCallback)(UIImage*);
 }
 
 -(id)initWithPath:(NSString *)path {
-    if ((self = [super init])) {
+    if ((self = [self init])) {
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
         self.cachePath = path;
         self.memoryCacheCapacity = TCDefaultMemoryCacheCapacity;
@@ -71,6 +71,7 @@ typedef void (^ImageCallback)(UIImage*);
 -(void)dealloc {
     self.cachePath = nil;
     self.cache = nil;
+    self.runLoop = nil;
     dispatch_release(_lockQueue);
     dispatch_release(_ioQueue);
     [super dealloc];
@@ -99,7 +100,9 @@ typedef void (^ImageCallback)(UIImage*);
         block([NSData dataWithContentsOfFile:cachePath]);
         return;
     }
-    [[TCDataService service] requestWithURL:url method:@"GET" headers:nil body:nil receiveHandler:^(id response, NSNumber *status, NSDictionary *headers) {
+    TCDataService *service = [TCDataService service];
+    service.runLoop = _runLoop;
+    [service requestWithURL:url method:@"GET" headers:nil body:nil receiveHandler:^(id response, NSNumber *status, NSDictionary *headers) {
         [(NSData*)response writeToFile:cachePath atomically:YES];
         block(response);
     } errorHandler:^(NSError *error) {

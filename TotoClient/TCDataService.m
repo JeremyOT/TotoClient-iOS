@@ -73,7 +73,7 @@
     [_urlConnection cancel];
     [_urlConnection release];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
-    [_urlConnection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [_urlConnection scheduleInRunLoop:_runLoop ? _runLoop : [NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     [_urlConnection start];
     _inProgress = !!_urlConnection;
     if (_urlConnection) {
@@ -220,6 +220,7 @@
     self.textEncodingName = nil;
     self.MIMEType = nil;
     self.suggestedFilename = nil;
+    self.runLoop = nil;
     [super dealloc];
 }
 
