@@ -11,6 +11,7 @@
 
 @property (nonatomic, assign) UIActivityIndicatorViewStyle indicatorStyle;
 @property (nonatomic, retain) TCDataCache *imageCache;
+@property (nonatomic) NSUInteger autoRetryCount;
 
 -(void)setImageWithURL:(NSURL*)url;
 -(void)setImageWithURL:(NSURL*)url fallbackImage:(UIImage*)fallbackImage;

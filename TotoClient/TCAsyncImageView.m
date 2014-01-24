@@ -61,6 +61,10 @@
 }
 
 -(void)setImageWithURL:(NSURL*)url fallbackImage:(UIImage*)fallbackImage {
+    [self setImageWithURL:url fallbackImage:fallbackImage retryCount:_autoRetryCount];
+}
+
+-(void)setImageWithURL:(NSURL*)url fallbackImage:(UIImage*)fallbackImage retryCount:(NSUInteger)retryCount {
     if (!url) return;
     if (!self.indicatorView) {
         self.indicatorView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.indicatorStyle] autorelease];
@@ -70,13 +74,17 @@
         [self addSubview:self.indicatorView];
     }
     NSTimeInterval token = [_dispatcher updateToken];
-    [self imageFromURL:url block:^(UIImage *image){
+    [self imageFromURL:url block:^(UIImage *image) {
         if (![_dispatcher isValidToken:token])
             return;
         [self.indicatorView removeFromSuperview];
         self.indicatorView = nil;
         if (image) {
             self.image = image;
+        } else if (retryCount > 0) {
+            dispatch_async(dispatch_get_current_queue(), ^{
+                [self setImageWithURL:url fallbackImage:fallbackImage retryCount:retryCount - 1];
+            });
         } else {
             self.image = fallbackImage;
         }
