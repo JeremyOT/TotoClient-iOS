@@ -11,6 +11,7 @@
 
 @property (nonatomic, assign) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, retain) TCDelayedDispatcher *dispatcher;
+@property (nonatomic, retain, readwrite) NSURL *imageURL;
 
 @end
 
@@ -53,6 +54,7 @@
 -(void)dealloc {
     [_dispatcher release];
     [_imageCache release];
+    [_imageURL release];
     [super dealloc];
 }
 
@@ -65,7 +67,9 @@
 }
 
 -(void)setImageWithURL:(NSURL*)url fallbackImage:(UIImage*)fallbackImage retryCount:(NSUInteger)retryCount {
-    if (!url) return;
+    if (!url || ([_imageURL isEqual:url] && self.image)) return;
+    self.imageURL = url;
+    if (!_keepImageWhileLoading) self.image = nil;
     if (!self.indicatorView) {
         self.indicatorView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.indicatorStyle] autorelease];
         self.indicatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
