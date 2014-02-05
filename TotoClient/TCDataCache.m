@@ -161,7 +161,7 @@ typedef void (^ImageCallback)(UIImage*);
         [self dataFromURL:url ignoreCache:ignoreCache block:^(NSData *data) {
             if (data) {
                 UIImage *image = [self imageFromData:data forSourceURL:url];
-                [_cache setObject:image forKey:url cost:[self cacheCostForImage:image]];
+                if (image) [_cache setObject:image forKey:url cost:[self cacheCostForImage:image]];
                 [self runCallbacksWithImage:image forUrl:url];
             } else {
                 [self runCallbacksWithImage:nil forUrl:url];
