@@ -114,7 +114,7 @@ typedef void (^ImageCallback)(UIImage*);
     [self imageFromURL:url ignoreCache:NO block:block];
 }
 
--(BOOL)addImageCallbackBlock:(ImageCallback)block forUrl:(NSURL*)url {
+-(BOOL)addImageCallbackBlock:(ImageCallback)block forURL:(NSURL*)url {
     __block BOOL first = NO;
     dispatch_sync(_lockQueue, ^{
         NSMutableArray *callbacks = [_imageCallbackBlocks objectForKey:url];
@@ -154,7 +154,7 @@ typedef void (^ImageCallback)(UIImage*);
         block(memoryCachedImage);
         return;
     }
-    if (!ignoreCache && ![self addImageCallbackBlock:block forUrl:url]) {
+    if (!ignoreCache && ![self addImageCallbackBlock:block forURL:url]) {
         return;
     }
     dispatch_async(_ioQueue, ^{
