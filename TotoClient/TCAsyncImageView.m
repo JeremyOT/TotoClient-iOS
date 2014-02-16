@@ -90,6 +90,7 @@
                 [self setImageWithURL:url fallbackImage:fallbackImage retryCount:retryCount - 1];
             });
         } else {
+            self.imageURL = nil;
             self.image = fallbackImage;
         }
     }];
