@@ -178,4 +178,10 @@ typedef void (^ImageCallback)(UIImage*);
     return (image.size.height * image.scale) * (image.size.width * image.scale) * 4;
 }
 
+-(void)clearCache {
+    [_cache removeAllObjects];
+    [[NSFileManager defaultManager] removeItemAtPath:_cachePath error:nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath:_cachePath withIntermediateDirectories:YES attributes:0 error:nil];
+}
+
 @end

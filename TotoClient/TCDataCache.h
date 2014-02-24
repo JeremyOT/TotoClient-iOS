@@ -29,5 +29,6 @@ static const NSUInteger TCDefaultMemoryCacheCapacity;
 -(void)imageFromURL:(NSURL*)url ignoreCache:(BOOL)ignoreCache block:(void (^)(UIImage *image))block;
 -(UIImage*)imageFromData:(NSData *)data forSourceURL:(NSURL*)url;
 -(NSUInteger)cacheCostForImage:(UIImage*)image;
+-(void)clearCache;
 
 @end
