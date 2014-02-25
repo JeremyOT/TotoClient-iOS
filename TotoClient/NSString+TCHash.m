@@ -20,7 +20,7 @@
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH];
     const char *bytes = [hash bytes];
     for (int i = 0; i < CC_SHA256_DIGEST_LENGTH; i++) {
-        [output appendFormat:@"%02x", bytes[i]];
+        [output appendFormat:@"%02x", 0xff & bytes[i]];
     }
     return output;
 }

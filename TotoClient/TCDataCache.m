@@ -160,9 +160,10 @@ typedef void (^ImageCallback)(UIImage*);
     dispatch_async(_ioQueue, ^{
         [self dataFromURL:url ignoreCache:ignoreCache block:^(NSData *data) {
             if (data) {
-                UIImage *image = [self imageFromData:data forSourceURL:url];
-                if (image) [_cache setObject:image forKey:url cost:[self cacheCostForImage:image]];
-                [self runCallbacksWithImage:image forUrl:url];
+                [self imageFromData:data forSourceURL:url withCompletionHandler:^(UIImage *image) {
+                    if (image) [_cache setObject:image forKey:url cost:[self cacheCostForImage:image]];
+                    [self runCallbacksWithImage:image forUrl:url];
+                }];
             } else {
                 [self runCallbacksWithImage:nil forUrl:url];
             }
@@ -170,8 +171,8 @@ typedef void (^ImageCallback)(UIImage*);
     });
 }
 
--(UIImage*)imageFromData:(NSData *)data forSourceURL:(NSURL*)url {
-    return [UIImage imageWithData:data];
+-(void)imageFromData:(NSData *)data forSourceURL:(NSURL *)url withCompletionHandler:(void(^)(UIImage*)) completionHandler {
+    completionHandler([UIImage imageWithData:data]);
 }
 
 -(NSUInteger)cacheCostForImage:(UIImage*)image {
