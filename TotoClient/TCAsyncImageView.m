@@ -67,7 +67,13 @@
 }
 
 -(void)setImageWithURL:(NSURL*)url fallbackImage:(UIImage*)fallbackImage retryCount:(NSUInteger)retryCount {
-    if (!url || ([_imageURL isEqual:url] && self.image)) return;
+    NSTimeInterval token = [_dispatcher updateToken];
+    if (!url) {
+        self.image = nil;
+        self.imageURL = nil;
+        return;
+    }
+    if ([_imageURL isEqual:url] && self.image) return;
     self.imageURL = url;
     if (!_keepImageWhileLoading) self.image = nil;
     if (!self.indicatorView) {
@@ -77,7 +83,6 @@
         [self.indicatorView startAnimating];
         [self addSubview:self.indicatorView];
     }
-    NSTimeInterval token = [_dispatcher updateToken];
     [self imageFromURL:url block:^(UIImage *image) {
         if (![_dispatcher isValidToken:token])
             return;
