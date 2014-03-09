@@ -22,5 +22,7 @@
 -(void)setImageWithURL:(NSURL*)url;
 -(void)setImageWithURL:(NSURL*)url fallbackImage:(UIImage*)fallbackImage;
 -(void)imageFromURL:(NSURL*)url block:(void (^)(UIImage *image))block;
+-(void)beginLoadingAnimation;
+-(void)endLoadingAnimation;
 
 @end

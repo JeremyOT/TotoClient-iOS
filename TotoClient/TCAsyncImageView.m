@@ -76,18 +76,11 @@
     if ([_imageURL isEqual:url] && self.image) return;
     self.imageURL = url;
     if (!_keepImageWhileLoading) self.image = nil;
-    if (!self.indicatorView) {
-        self.indicatorView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.indicatorStyle] autorelease];
-        self.indicatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-        self.indicatorView.frame = CGRectMake((self.bounds.size.width - self.indicatorView.frame.size.width) / 2.0, (self.bounds.size.height - self.indicatorView.frame.size.height) / 2.0, self.indicatorView.frame.size.width, self.indicatorView.frame.size.height);
-        [self.indicatorView startAnimating];
-        [self addSubview:self.indicatorView];
-    }
+    [self beginLoadingAnimation];
     [self imageFromURL:url block:^(UIImage *image) {
         if (![_dispatcher isValidToken:token])
             return;
-        [self.indicatorView removeFromSuperview];
-        self.indicatorView = nil;
+        [self endLoadingAnimation];
         if (image) {
             self.image = image;
         } else if (retryCount > 0) {
@@ -103,6 +96,21 @@
 
 -(void)imageFromURL:(NSURL*)url block:(void (^)(UIImage *image))block {
     [_imageCache imageFromURL:url block:block];
+}
+
+-(void)beginLoadingAnimation {
+    if (!self.indicatorView) {
+        self.indicatorView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.indicatorStyle] autorelease];
+        self.indicatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+        self.indicatorView.frame = CGRectMake((self.bounds.size.width - self.indicatorView.frame.size.width) / 2.0, (self.bounds.size.height - self.indicatorView.frame.size.height) / 2.0, self.indicatorView.frame.size.width, self.indicatorView.frame.size.height);
+        [self.indicatorView startAnimating];
+        [self addSubview:self.indicatorView];
+    }
+}
+
+-(void)endLoadingAnimation {
+    [self.indicatorView removeFromSuperview];
+    self.indicatorView = nil;
 }
 
 @end

@@ -22,6 +22,7 @@ static const NSUInteger TCDefaultMemoryCacheCapacity;
 -(id)initWithPath:(NSString*)path;
 -(id)initWithPathInCachesDirectory:(NSString*)path;
 
+-(NSData*)cachedDataForURL:(NSURL*)url cachePath:(NSString*)cachePath;
 -(NSString*)cachePathForURL:(NSURL*)url;
 -(void)dataFromURL:(NSURL*)url block:(void (^)(NSData *data))block;
 -(void)dataFromURL:(NSURL*)url ignoreCache:(BOOL)ignoreCache block:(void (^)(NSData *data))block;

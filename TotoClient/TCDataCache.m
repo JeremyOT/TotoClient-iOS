@@ -96,8 +96,9 @@ typedef void (^ImageCallback)(UIImage*);
 
 -(void)dataFromURL:(NSURL *)url ignoreCache:(BOOL)ignoreCache block:(void (^)(NSData *))block {
     NSString *cachePath = [self cachePathForURL:url];
-    if (!ignoreCache && [[NSFileManager defaultManager] fileExistsAtPath:cachePath]) {
-        block([NSData dataWithContentsOfFile:cachePath]);
+    NSData *cachedData = ignoreCache ? nil : [self cachedDataForURL:url cachePath:cachePath];
+    if (cachedData) {
+        block(cachedData);
         return;
     }
     TCDataService *service = [TCDataService service];
@@ -108,6 +109,10 @@ typedef void (^ImageCallback)(UIImage*);
     } errorHandler:^(NSError *error) {
         block(nil);
     }];
+}
+
+-(NSData *)cachedDataForURL:(NSURL *)url cachePath:(NSString *)cachePath {
+    return [NSData dataWithContentsOfFile:cachePath];
 }
 
 -(void)imageFromURL:(NSURL *)url block:(ImageCallback)block {
