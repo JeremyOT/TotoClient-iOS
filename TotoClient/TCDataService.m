@@ -181,7 +181,7 @@
     if (self.onReceiveBlock) {
         void (^onReceiveBlock)(id, NSNumber*, NSDictionary*) = [self.onReceiveBlock retain];
         self.onReceiveBlock = nil;
-        onReceiveBlock([NSData dataWithData:receivedData], [NSNumber numberWithInteger:self.statusCode], responseHeaders);
+        onReceiveBlock(receivedData, [NSNumber numberWithInteger:self.statusCode], responseHeaders);
         [onReceiveBlock release];
     }
     [receivedData release];
