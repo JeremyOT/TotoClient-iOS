@@ -4,6 +4,7 @@
 //
 
 #import "TCAsyncImageView.h"
+#import "TCAsyncImageView_Protected.h"
 #import "TCDataCache.h"
 #import "TCDelayedDispatcher.h"
 
@@ -11,7 +12,6 @@
 
 @property (nonatomic, assign) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, retain) TCDelayedDispatcher *dispatcher;
-@property (nonatomic, retain, readwrite) NSURL *imageURL;
 
 @end
 

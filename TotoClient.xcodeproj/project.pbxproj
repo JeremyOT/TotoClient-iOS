@@ -66,6 +66,7 @@
 		2411C7FF1663244800A87011 /* TCDelayedDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCDelayedDispatcher.m; sourceTree = "<group>"; };
 		245A81D61878A33D00065E1E /* TCDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCDataCache.h; sourceTree = "<group>"; };
 		245A81D71878A33D00065E1E /* TCDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCDataCache.m; sourceTree = "<group>"; };
+		247A86BA18D2789D00A34BDD /* TCAsyncImageView_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TCAsyncImageView_Protected.h; sourceTree = "<group>"; };
 		24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveBSON.xcodeproj; path = ObjectiveBSON/ObjectiveBSON.xcodeproj; sourceTree = "<group>"; };
 		24FAA24314B76CBA005D8027 /* libTotoClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTotoClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FAA24614B76CBA005D8027 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -133,6 +134,7 @@
 				24FAA25814B76D66005D8027 /* TCDataService.m */,
 				245A81D61878A33D00065E1E /* TCDataCache.h */,
 				245A81D71878A33D00065E1E /* TCDataCache.m */,
+				247A86BA18D2789D00A34BDD /* TCAsyncImageView_Protected.h */,
 				2411C7F81663244800A87011 /* TCAsyncImageView.h */,
 				2411C7F91663244800A87011 /* TCAsyncImageView.m */,
 				2411C7FC1663244800A87011 /* NSString+TCHash.h */,
@@ -206,7 +208,7 @@
 		24FAA23A14B76CBA005D8027 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = JOT;
 			};
 			buildConfigurationList = 24FAA23D14B76CBA005D8027 /* Build configuration list for PBXProject "TotoClient" */;
@@ -281,7 +283,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -313,7 +314,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
