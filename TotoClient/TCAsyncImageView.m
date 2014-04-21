@@ -75,6 +75,7 @@
     }
     if ([_imageURL isEqual:url] && self.image) return;
     self.imageURL = url;
+    [_delegate asyncImageView:self willLoadImageFromURL:_imageURL];
     if (!_keepImageWhileLoading) self.image = nil;
     [self beginLoadingAnimation];
     [self imageFromURL:url block:^(UIImage *image) {
@@ -82,6 +83,7 @@
             return;
         [self endLoadingAnimation];
         if (image) {
+            [_delegate asyncImageView:self willDisplayImage:image successfully:YES];
             self.image = image;
         } else if (retryCount > 0) {
             dispatch_async(dispatch_get_current_queue(), ^{
@@ -89,6 +91,7 @@
             });
         } else {
             self.imageURL = nil;
+            [_delegate asyncImageView:self willDisplayImage:fallbackImage successfully:NO];
             self.image = fallbackImage;
         }
     }];

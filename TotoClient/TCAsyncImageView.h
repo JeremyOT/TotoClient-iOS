@@ -6,6 +6,15 @@
 #import <UIKit/UIKit.h>
 
 @class TCDataCache;
+@class TCAsyncImageView;
+
+@protocol TCAsyncImageViewDelegate <NSObject>
+
+// The image may be the fallback image, so use successfully to check if the remote image was successfully loaded.
+-(void)asyncImageView:(TCAsyncImageView*)asyncImageView willDisplayImage:(UIImage*)image successfully:(BOOL)successfully;
+-(void)asyncImageView:(TCAsyncImageView*)asyncImageView willLoadImageFromURL:(NSURL*)url;
+
+@end
 
 @interface TCAsyncImageView : UIImageView
 
@@ -18,6 +27,9 @@
 
 // The last URL used to load the image, manually setting the image does not affect this property.
 @property (nonatomic, readonly) NSURL *imageURL;
+
+// Use the delegate to track when the image is set
+@property (nonatomic, assign) IBOutlet NSObject<TCAsyncImageViewDelegate> *delegate;
 
 -(void)setImageWithURL:(NSURL*)url;
 -(void)setImageWithURL:(NSURL*)url fallbackImage:(UIImage*)fallbackImage;
