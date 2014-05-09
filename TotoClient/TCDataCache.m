@@ -13,8 +13,6 @@
 static const NSString *TCDefaultCacheDirectory = @"toto_cache";
 static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
 
-typedef void (^ImageCallback)(UIImage*);
-
 @interface TCDataCache ()
 
 @property (nonatomic, copy, readwrite) NSString *cachePath;

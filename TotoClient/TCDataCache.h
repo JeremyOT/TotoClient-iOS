@@ -15,6 +15,7 @@ static const NSUInteger TCDefaultMemoryCacheCapacity;
 @property (nonatomic, copy, readonly) NSString *cachePath;
 @property (nonatomic, retain) NSRunLoop *runLoop;
 @property (nonatomic) NSUInteger memoryCacheCapacity;
+typedef void (^ImageCallback)(UIImage*);
 
 +(TCDataCache*)sharedCache;
 +(TCDataCache*)sharedCacheWithName:(NSString*)name;
@@ -31,5 +32,8 @@ static const NSUInteger TCDefaultMemoryCacheCapacity;
 -(void)imageFromData:(NSData *)data forSourceURL:(NSURL *)url withCompletionHandler:(void(^)(UIImage *image)) completionHandler;
 -(NSUInteger)cacheCostForImage:(UIImage*)image;
 -(void)clearCache;
+
+-(BOOL)addImageCallbackBlock:(ImageCallback)block forURL:(NSURL*)url;
+-(void)runCallbacksWithImage:(UIImage*)image forUrl:(NSURL*)url;
 
 @end
