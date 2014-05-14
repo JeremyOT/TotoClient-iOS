@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>69F9A5A3-0EA2-4D0F-82F5-71ED45ADF649</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TotoClient</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>06E47548-CC70-4310-834D-8E391DF40FC5</key>
+		<string>https://github.com/JeremyOT/TotoClient-iOS.git</string>
+		<key>BBB47966-FD3C-49FE-820F-76CE1823F0AC</key>
+		<string>git://github.com/JeremyOT/ObjectiveBSON.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TotoClient.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>06E47548-CC70-4310-834D-8E391DF40FC5</key>
+		<string>../..</string>
+		<key>BBB47966-FD3C-49FE-820F-76CE1823F0AC</key>
+		<string>../../ObjectiveBSON</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/JeremyOT/TotoClient-iOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>06E47548-CC70-4310-834D-8E391DF40FC5</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BBB47966-FD3C-49FE-820F-76CE1823F0AC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ObjectiveBSON</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>06E47548-CC70-4310-834D-8E391DF40FC5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TotoClient-iOS</string>
+		</dict>
+	</array>
+</dict>
+</plist>

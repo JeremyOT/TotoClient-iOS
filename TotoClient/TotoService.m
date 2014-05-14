@@ -15,7 +15,7 @@
 
 @interface TotoService ()
 
-@property (nonatomic, retain) NSMutableDictionary *queuedRequests;
+@property (nonatomic, strong) NSMutableDictionary *queuedRequests;
 
 -(void)setUserID:(NSString*)userID SessionID:(NSString*)sessionID expires:(NSTimeInterval)sessionExpires;
 
@@ -31,7 +31,7 @@
 #pragma mark - Lifecycle
 
 +(TotoService *)serviceWithURL:(NSURL *)url BSON:(BOOL)bson {
-    return [[[self alloc] initWithURL:url BSON:bson] autorelease];
+    return [[self alloc] initWithURL:url BSON:bson];
 }
 
 +(TotoService *)serviceWithURL:(NSURL *)url {
@@ -50,12 +50,6 @@
     return [self initWithURL:url BSON:NO];
 }
 
--(void)dealloc {
-    [_serviceURL release];
-    [_queuedRequests release];
-    [_preflightHandler release];
-    [super dealloc];
-}
 
 #pragma mark - Default Properties
 
@@ -159,15 +153,15 @@
         parameters = [NSDictionary dictionary];
     }
     [self.queuedRequests setObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    [[method copy] autorelease], @"method",
-                                    [[parameters copy] autorelease], @"parameters",
-                                    [[receiveHandler copy] autorelease], @"receiveHandler",
-                                    [[errorHandler copy] autorelease], @"errorHandler",
+                                    [method copy], @"method",
+                                    [parameters copy], @"parameters",
+                                    [receiveHandler copy], @"receiveHandler",
+                                    [errorHandler copy], @"errorHandler",
                                     nil] forKey:requestID];
 }
 
 -(void)batchRequest:(void(^)())completeHandler {
-    NSDictionary *requests = [[_queuedRequests retain] autorelease];
+    NSDictionary *requests = _queuedRequests;
     self.queuedRequests = nil;
     NSMutableDictionary *batch = [NSMutableDictionary dictionaryWithCapacity:[requests count]];
     for (NSString *requestID in requests) {

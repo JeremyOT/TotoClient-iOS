@@ -10,6 +10,6 @@
 
 @interface TCAsyncImageView ()
 
-@property (nonatomic, retain, readwrite) NSURL *imageURL;
+@property (nonatomic, strong, readwrite) NSURL *imageURL;
 
 @end

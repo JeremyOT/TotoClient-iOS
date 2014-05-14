@@ -9,9 +9,9 @@
 
 +(NSString*)generateUUID {
     CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
-    NSString *uuidString = (NSString*)CFUUIDCreateString(kCFAllocatorDefault, uuid);
+    NSString *uuidString = (NSString*)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuid));
     CFRelease(uuid);
-    return [uuidString autorelease];
+    return uuidString;
 }
 
 @end

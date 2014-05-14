@@ -18,18 +18,18 @@
 
 @interface TCAsyncImageView : UIImageView
 
-@property (nonatomic, assign) UIActivityIndicatorViewStyle indicatorStyle;
-@property (nonatomic, retain) TCDataCache *imageCache;
+@property (nonatomic) UIActivityIndicatorViewStyle indicatorStyle;
+@property (nonatomic, strong) TCDataCache *imageCache;
 @property (nonatomic) NSUInteger autoRetryCount;
 
 // If YES, the image will not be set to nil before a new one is loaded.
 @property (nonatomic) BOOL keepImageWhileLoading;
 
 // The last URL used to load the image, manually setting the image does not affect this property.
-@property (nonatomic, readonly) NSURL *imageURL;
+@property (nonatomic, strong, readonly) NSURL *imageURL;
 
 // Use the delegate to track when the image is set
-@property (nonatomic, assign) IBOutlet NSObject<TCAsyncImageViewDelegate> *delegate;
+@property (nonatomic, weak) IBOutlet NSObject<TCAsyncImageViewDelegate> *delegate;
 
 -(void)setImageWithURL:(NSURL*)url;
 -(void)setImageWithURL:(NSURL*)url fallbackImage:(UIImage*)fallbackImage;

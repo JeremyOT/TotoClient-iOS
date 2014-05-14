@@ -10,8 +10,8 @@
 
 @interface TCAsyncImageView ()
 
-@property (nonatomic, assign) UIActivityIndicatorView *indicatorView;
-@property (nonatomic, retain) TCDelayedDispatcher *dispatcher;
+@property (nonatomic, weak) UIActivityIndicatorView *indicatorView;
+@property (nonatomic, strong) TCDelayedDispatcher *dispatcher;
 
 @end
 
@@ -51,12 +51,6 @@
     return self;
 }
 
--(void)dealloc {
-    [_dispatcher release];
-    [_imageCache release];
-    [_imageURL release];
-    [super dealloc];
-}
 
 -(void)setImageWithURL:(NSURL*)url {
     [self setImageWithURL:url fallbackImage:nil];
@@ -103,7 +97,8 @@
 
 -(void)beginLoadingAnimation {
     if (!self.indicatorView) {
-        self.indicatorView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.indicatorStyle] autorelease];
+        UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.indicatorStyle];
+        self.indicatorView = indicatorView;
         self.indicatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
         self.indicatorView.frame = CGRectMake((self.bounds.size.width - self.indicatorView.frame.size.width) / 2.0, (self.bounds.size.height - self.indicatorView.frame.size.height) / 2.0, self.indicatorView.frame.size.width, self.indicatorView.frame.size.height);
         [self.indicatorView startAnimating];

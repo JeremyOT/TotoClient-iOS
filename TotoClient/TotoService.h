@@ -35,13 +35,13 @@ useQueryParameters:(BOOL)useQueryParameters
 #if !defined NO_BSON && !defined NO_JSON
 @property (nonatomic,assign) BOOL usesBSON;
 #endif
-@property (nonatomic,assign) id<TotoServiceAuthenticationDelegate> authenticationDelegate;
+@property (nonatomic,weak) id<TotoServiceAuthenticationDelegate> authenticationDelegate;
 
-@property (nonatomic, readonly) NSString *userID;
-@property (nonatomic, readonly) NSString *sessionID;
+@property (weak, nonatomic, readonly) NSString *userID;
+@property (weak, nonatomic, readonly) NSString *sessionID;
 @property (nonatomic, readonly) NSTimeInterval sessionExpires;
 @property (nonatomic, readonly) NSUInteger queuedRequestCount;
-@property (nonatomic, retain) NSDictionary *sessionData;
+@property (nonatomic, strong) NSDictionary *sessionData;
 @property (nonatomic, copy) void (^preflightHandler)(NSData *requestBody, NSMutableDictionary *headers);
 @property (nonatomic, assign) BOOL signsRequests;
 @property (nonatomic, assign) NSJSONReadingOptions JSONReadingOptions;

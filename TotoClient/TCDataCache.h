@@ -13,7 +13,7 @@ static const NSUInteger TCDefaultMemoryCacheCapacity;
 @interface TCDataCache : NSObject
 
 @property (nonatomic, copy, readonly) NSString *cachePath;
-@property (nonatomic, retain) NSRunLoop *runLoop;
+@property (nonatomic, strong) NSRunLoop *runLoop;
 @property (nonatomic) NSUInteger memoryCacheCapacity;
 typedef void (^ImageCallback)(UIImage*);
 

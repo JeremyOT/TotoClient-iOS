@@ -9,17 +9,17 @@
 
 @interface TCDataService ()
 
-@property (nonatomic, retain) NSMutableData *receivedData;
-@property (nonatomic, retain) NSURLConnection *urlConnection;
+@property (nonatomic, strong) NSMutableData *receivedData;
+@property (nonatomic, strong) NSURLConnection *urlConnection;
 @property (nonatomic, copy) void (^onReceiveBlock)(id, NSNumber*, NSDictionary*);
 @property (nonatomic, copy) void (^onErrorBlock)(NSError*);
 
 // Response properties: generate hidden setters
-@property(nonatomic, retain, readwrite) NSDictionary *responseHeaders;
+@property(nonatomic, strong, readwrite) NSDictionary *responseHeaders;
 @property(nonatomic, readwrite) long long expectedContentLength;
-@property(nonatomic, retain, readwrite) NSString *textEncodingName;
-@property(nonatomic, retain, readwrite) NSString *MIMEType;
-@property(nonatomic, retain, readwrite) NSString *suggestedFilename;
+@property(nonatomic, strong, readwrite) NSString *textEncodingName;
+@property(nonatomic, strong, readwrite) NSString *MIMEType;
+@property(nonatomic, strong, readwrite) NSString *suggestedFilename;
 
 @end
 
@@ -41,7 +41,7 @@
 #pragma mark - Initialization
 
 + (TCDataService*)service{
-    return [[[TCDataService alloc] init] autorelease];
+    return [[TCDataService alloc] init];
 }
 
 #pragma mark - Request
@@ -54,7 +54,6 @@
       timeoutInterval:(NSTimeInterval)timeoutInterval
        receiveHandler:(void (^)(id, NSNumber*, NSDictionary*))receiveHandler
          errorHandler:(void (^)(NSError*))errorHandler {
-    [self retain];
     self.onReceiveBlock = receiveHandler;
     self.onErrorBlock = errorHandler;
     self.requestURL = url;
@@ -71,7 +70,6 @@
     [request setHTTPMethod:method];
     [request setHTTPBodyStream:bodyStream];
     [_urlConnection cancel];
-    [_urlConnection release];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
     [_urlConnection scheduleInRunLoop:_runLoop ? _runLoop : [NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     [_urlConnection start];
@@ -82,7 +80,6 @@
         NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:@"Failed to create connection" forKey:NSLocalizedDescriptionKey];
         self.onErrorBlock([NSError errorWithDomain:TC_DATA_SERVICE_DOMAIN code:0 userInfo:errorInfo]);
         self.urlConnection = nil;
-        [self release];
     }
 }
 
@@ -149,19 +146,17 @@
     self.urlConnection = nil;
     if (self.onErrorBlock) {
         // Hold on to the block so that this DataService can be used for new requests in the callback.
-        void (^onErrorBlock)(NSError*) = [self.onErrorBlock retain];
+        void (^onErrorBlock)(NSError*) = self.onErrorBlock;
         self.onErrorBlock = nil;
         onErrorBlock(error);
-        [onErrorBlock release];
     }
-    [self release];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection*)connection{
     _inProgress = NO;
     // check to see if the status code is an error code and react appropriately
     if (self.statusCode / 100 == TC_RESPONSE_CLIENT_ERROR / 100 || self.statusCode / 100 == TC_RESPONSE_SERVER_ERROR / 100) {
-        NSString *errorString = [[[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding] autorelease];
+        NSString *errorString = [[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding];
         NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
         NSError *error = [NSError errorWithDomain:TC_DATA_SERVICE_DOMAIN code:self.statusCode userInfo:errorInfo];
         [self connection:connection didFailWithError:error];
@@ -170,8 +165,8 @@
     self.onErrorBlock = nil;
     self.urlConnection = nil;
     // Hold on to required values so that this DataService can be reused from the callback.
-    NSData *receivedData = [self.receivedData retain];
-    NSDictionary *responseHeaders = [self.responseHeaders retain];
+    NSData *receivedData = self.receivedData;
+    NSDictionary *responseHeaders = self.responseHeaders;
     self.receivedData = nil;
     self.responseHeaders = nil;
     self.expectedContentLength = 0;
@@ -179,14 +174,10 @@
     self.MIMEType = nil;
     self.suggestedFilename = nil;
     if (self.onReceiveBlock) {
-        void (^onReceiveBlock)(id, NSNumber*, NSDictionary*) = [self.onReceiveBlock retain];
+        void (^onReceiveBlock)(id, NSNumber*, NSDictionary*) = self.onReceiveBlock;
         self.onReceiveBlock = nil;
         onReceiveBlock(receivedData, [NSNumber numberWithInteger:self.statusCode], responseHeaders);
-        [onReceiveBlock release];
     }
-    [receivedData release];
-    [responseHeaders release];
-    [self release];
 }
 
 #pragma mark - Cleanup
@@ -203,25 +194,11 @@
     self.textEncodingName = nil;
     self.MIMEType = nil;
     self.suggestedFilename = nil;
-    if (_inProgress) {
-        [self release];
-    }
     _inProgress = NO;
 }
 
 - (void)dealloc{
-    self.receivedData = nil;
-    self.requestURL = nil;
-    self.onReceiveBlock = nil;
-    self.onErrorBlock = nil;
-    self.urlConnection = nil;
-    self.responseHeaders = nil;
     self.expectedContentLength = 0;
-    self.textEncodingName = nil;
-    self.MIMEType = nil;
-    self.suggestedFilename = nil;
-    self.runLoop = nil;
-    [super dealloc];
 }
 
 @end

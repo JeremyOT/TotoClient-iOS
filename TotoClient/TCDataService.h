@@ -11,17 +11,17 @@
 
 @interface TCDataService : NSObject <NSURLConnectionDelegate>
 
-@property(nonatomic,retain) NSURL *requestURL;
+@property(nonatomic,strong) NSURL *requestURL;
 @property(nonatomic) NSInteger statusCode;
 @property(nonatomic,readonly,getter = isInProgress) BOOL inProgress;
 
 // Response properties
-@property(nonatomic, retain, readonly) NSDictionary *responseHeaders;
+@property(nonatomic, strong, readonly) NSDictionary *responseHeaders;
 @property(nonatomic, readonly) long long expectedContentLength;
-@property(nonatomic, retain, readonly) NSString *textEncodingName;
-@property(nonatomic, retain, readonly) NSString *MIMEType;
-@property(nonatomic, retain, readonly) NSString *suggestedFilename;
-@property(nonatomic, retain) NSRunLoop *runLoop;
+@property(nonatomic, strong, readonly) NSString *textEncodingName;
+@property(nonatomic, strong, readonly) NSString *MIMEType;
+@property(nonatomic, strong, readonly) NSString *suggestedFilename;
+@property(nonatomic, strong) NSRunLoop *runLoop;
 
 + (TCDataService*)service;
 

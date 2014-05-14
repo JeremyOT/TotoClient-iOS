@@ -31,7 +31,7 @@
 }
 
 +(TCDelayedDispatcher*)dispatcher {
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
 #pragma mark - Scheduling
@@ -60,9 +60,9 @@
 
 -(void (^)())guardedBlock:(void(^)())block {
     NSTimeInterval token = [self updateToken];
-    return [[^ {
+    return [^ {
         [self dispatchForToken:token withBlock:block];
-    } copy] autorelease];
+    } copy];
 }
 
 @end

@@ -16,8 +16,8 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
 @interface TCDataCache ()
 
 @property (nonatomic, copy, readwrite) NSString *cachePath;
-@property (nonatomic, retain) NSCache *cache;
-@property (nonatomic, retain) NSMutableDictionary *imageCallbackBlocks;
+@property (nonatomic, strong) NSCache *cache;
+@property (nonatomic, strong) NSMutableDictionary *imageCallbackBlocks;
 @property (nonatomic, assign) dispatch_queue_t lockQueue;
 @property (nonatomic, assign) dispatch_queue_t ioQueue;
 
@@ -42,7 +42,7 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
     @synchronized(self) {
         TCDataCache *cache = [[self sharedCaches] objectForKey:name];
         if (cache) return cache;
-        cache = [[[self alloc] initWithPathInCachesDirectory:name] autorelease];
+        cache = [[self alloc] initWithPathInCachesDirectory:name];
         [[self sharedCaches] setObject:cache forKey:name];
         return cache;
     }
@@ -67,12 +67,8 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
 }
 
 -(void)dealloc {
-    self.cachePath = nil;
-    self.cache = nil;
-    self.runLoop = nil;
     dispatch_release(_lockQueue);
     dispatch_release(_ioQueue);
-    [super dealloc];
 }
 
 -(void)setMemoryCacheCapacity:(NSUInteger)memoryCacheCapacity {
@@ -126,15 +122,15 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
             callbacks = [NSMutableArray array];
             [_imageCallbackBlocks setObject:callbacks forKey:url];
         }
-        [callbacks addObject:[[block copy] autorelease]];
+        [callbacks addObject:[block copy]];
     });
     return first;
 }
 
 -(void)runCallbacksWithImage:(UIImage*)image forUrl:(NSURL*)url {
-    __block NSArray *callbacks = nil;
+    NSMutableArray *callbacks = [NSMutableArray array];
     dispatch_sync(_lockQueue, ^{
-        callbacks = [[_imageCallbackBlocks objectForKey:url] retain];
+        [callbacks addObjectsFromArray:[_imageCallbackBlocks objectForKey:url]];
         [_imageCallbackBlocks removeObjectForKey:url];
     });
     if ([NSThread isMainThread]) {
@@ -148,7 +144,6 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
             }
         });
     }
-    [callbacks release];
 }
 
 -(void)imageFromURL:(NSURL *)url ignoreCache:(BOOL)ignoreCache block:(ImageCallback)block {
