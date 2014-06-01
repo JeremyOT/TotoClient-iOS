@@ -216,7 +216,11 @@
                   } else {
                       NSDictionary *error = [response objectForKey:@"error"];
                       void (^errorHandler)(NSError *) = [[requests objectForKey:responseID] objectForKey:@"errorHandler"];
-                      if (errorHandler) {
+                      NSInteger errorCode = [[error objectForKey:@"code"] integerValue];
+                      if (self.authenticationDelegate && (errorCode == TOTO_ERROR_INVALID_SESSION_ID || errorCode == TOTO_ERROR_NOT_AUTHORIZED)) {
+                          [self clearSession];
+                          [self.authenticationDelegate totoService:self requiresAuthenticationForMethodName:[[requests objectForKey:responseID] objectForKey:@"method"] parameters:[[requests objectForKey:responseID] objectForKey:@"parameters"] headers:headers useQueryParameters:NO receiveHandler:[[requests objectForKey:responseID] objectForKey:@"receiveHandler"] errorHandler:[[requests objectForKey:responseID] objectForKey:@"errorHandler"]];
+                      } else if (errorHandler) {
                           errorHandler([response objectForKey:@"error"] ? [NSError errorWithDomain:@"TotoServiceError"
                                                                                               code:[[error objectForKey:@"code"] integerValue]
                                                                                           userInfo:[NSDictionary dictionaryWithObject:[error objectForKey:@"value"] forKey:NSLocalizedDescriptionKey]] : nil);
