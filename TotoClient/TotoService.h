@@ -32,9 +32,6 @@ useQueryParameters:(BOOL)useQueryParameters
 @interface TotoService : TCDataService
 
 @property (readonly) NSURL *serviceURL;
-#if !defined NO_BSON && !defined NO_JSON
-@property (nonatomic,assign) BOOL usesBSON;
-#endif
 @property (nonatomic,weak) id<TotoServiceAuthenticationDelegate> authenticationDelegate;
 
 @property (weak, nonatomic, readonly) NSString *userID;
@@ -44,16 +41,20 @@ useQueryParameters:(BOOL)useQueryParameters
 @property (nonatomic, strong) NSDictionary *sessionData;
 @property (nonatomic, copy) void (^preflightHandler)(NSData *requestBody, NSMutableDictionary *headers);
 @property (nonatomic, assign) BOOL signsRequests;
-@property (nonatomic, assign) NSJSONReadingOptions JSONReadingOptions;
+@property (nonatomic, strong, readonly) NSString *contentType;
 
 +(void)setDefaultRequestHeader:(NSString*)value forKey:(NSString*)key;
 +(NSString*)defaultRequestHeaderForKey:(NSString*)key;
 +(NSDictionary*)allDefaultRequestHeaders;
 
++(NSData*(^)(id request, NSMutableDictionary *requestHeaders))jsonSerializer;
++(id(^)(NSData *response, NSDictionary *responseHeaders))jsonDeserializer;
++(id(^)(NSData *response, NSDictionary *responseHeaders))jsonDeserializerWithOptions:(NSJSONReadingOptions)options;
+
 +(TotoService*)serviceWithURL:(NSURL*)url;
 -(TotoService*)initWithURL:(NSURL*)url;
-+(TotoService*)serviceWithURL:(NSURL*)url BSON:(BOOL)bson;
--(TotoService*)initWithURL:(NSURL*)url BSON:(BOOL)bson;
++(TotoService *)serviceWithURL:(NSURL *)url contentType:(NSString*)contentType requestSerializer:(NSData *(^)(id request, NSMutableDictionary *requestHeaders))requestSerializer;
+-(TotoService *)initWithURL:(NSURL *)url contentType:(NSString*)contentType requestSerializer:(NSData *(^)(id request, NSMutableDictionary *requestHeaders))requestSerializer;
 
 -(void)clearSession;
 
@@ -107,5 +108,8 @@ useQueryParameters:(BOOL)useQueryParameters
              errorHandler:(void (^)(NSError *))errorHandler;
 
 -(void)clearRequestQueue;
+
+-(void)setContentType:(NSString *)contentType withSerializer:(NSData* (^)(id request, NSMutableDictionary *requestHeaders))serializer;
+-(void)setDeserializer:(id (^)(NSData* response, NSDictionary *responseHeaders))deserializer forContentType:(NSString *)contentType;
 
 @end

@@ -19,7 +19,6 @@
 		2411C8071663244800A87011 /* TCDelayedDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2411C7FF1663244800A87011 /* TCDelayedDispatcher.m */; };
 		245A81D81878A33D00065E1E /* TCDataCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 245A81D61878A33D00065E1E /* TCDataCache.h */; };
 		245A81D91878A33D00065E1E /* TCDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 245A81D71878A33D00065E1E /* TCDataCache.m */; };
-		24B113B814B7C805009884B3 /* libObjectiveBSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CB501814B7AEFF007445F9 /* libObjectiveBSON.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FAA24614B76CBA005D8027 /* Foundation.framework */; };
 		24FAA25D14B76D66005D8027 /* TCDataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25714B76D66005D8027 /* TCDataService.h */; settings = {ATTRIBUTES = (); }; };
 		24FAA25E14B76D66005D8027 /* TCDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25814B76D66005D8027 /* TCDataService.m */; };
@@ -28,30 +27,6 @@
 		24FAA26114B76D66005D8027 /* TotoService.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FAA25B14B76D66005D8027 /* TotoService.h */; settings = {ATTRIBUTES = (); }; };
 		24FAA26214B76D66005D8027 /* TotoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FAA25C14B76D66005D8027 /* TotoService.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		24A2F17015486DD800E582F7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 24F5416314AD4513009B8EF7;
-			remoteInfo = ObjectiveBSON;
-		};
-		24CB501714B7AEFF007445F9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 24F5416414AD4513009B8EF7;
-			remoteInfo = ObjectiveBSON;
-		};
-		24CB501914B7AEFF007445F9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 24F5417414AD4513009B8EF7;
-			remoteInfo = ObjectiveBSONTests;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2407CBE51664B9B50083A489 /* NSURL+TCQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TCQuery.h"; sourceTree = "<group>"; };
@@ -67,7 +42,6 @@
 		245A81D61878A33D00065E1E /* TCDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCDataCache.h; sourceTree = "<group>"; };
 		245A81D71878A33D00065E1E /* TCDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCDataCache.m; sourceTree = "<group>"; };
 		247A86BA18D2789D00A34BDD /* TCAsyncImageView_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TCAsyncImageView_Protected.h; sourceTree = "<group>"; };
-		24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveBSON.xcodeproj; path = ObjectiveBSON/ObjectiveBSON.xcodeproj; sourceTree = "<group>"; };
 		24FAA24314B76CBA005D8027 /* libTotoClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTotoClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FAA24614B76CBA005D8027 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24FAA24A14B76CBA005D8027 /* TotoClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TotoClient-Prefix.pch"; sourceTree = "<group>"; };
@@ -84,7 +58,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24B113B814B7C805009884B3 /* libObjectiveBSON.a in Frameworks */,
 				24FAA24714B76CBA005D8027 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,19 +65,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		24CB501014B7AEFF007445F9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				24CB501814B7AEFF007445F9 /* libObjectiveBSON.a */,
-				24CB501A14B7AEFF007445F9 /* ObjectiveBSONTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		24FAA23814B76CBA005D8027 = {
 			isa = PBXGroup;
 			children = (
-				24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */,
 				24FAA24814B76CBA005D8027 /* TotoClient */,
 				24FAA24514B76CBA005D8027 /* Frameworks */,
 				24FAA24414B76CBA005D8027 /* Products */,
@@ -195,7 +158,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				24A2F17115486DD800E582F7 /* PBXTargetDependency */,
 			);
 			name = TotoClient;
 			productName = TotoClient;
@@ -221,35 +183,12 @@
 			mainGroup = 24FAA23814B76CBA005D8027;
 			productRefGroup = 24FAA24414B76CBA005D8027 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 24CB501014B7AEFF007445F9 /* Products */;
-					ProjectRef = 24CB500F14B7AEFF007445F9 /* ObjectiveBSON.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				24FAA24214B76CBA005D8027 /* TotoClient */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		24CB501814B7AEFF007445F9 /* libObjectiveBSON.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libObjectiveBSON.a;
-			remoteRef = 24CB501714B7AEFF007445F9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		24CB501A14B7AEFF007445F9 /* ObjectiveBSONTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ObjectiveBSONTests.octest;
-			remoteRef = 24CB501914B7AEFF007445F9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		24FAA23F14B76CBA005D8027 /* Sources */ = {
@@ -269,14 +208,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		24A2F17115486DD800E582F7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ObjectiveBSON;
-			targetProxy = 24A2F17015486DD800E582F7 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		24FAA24E14B76CBA005D8027 /* Debug */ = {

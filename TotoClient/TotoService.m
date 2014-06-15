@@ -5,7 +5,6 @@
 
 #import "TotoService.h"
 #import "TCHMAC.h"
-#import "BSONSerialization.h"
 #import "TCUUID.h"
 #import "NSURL+TCQuery.h"
 
@@ -13,9 +12,15 @@
 #define TOTO_SESSION_ID_KEY @"TOTO_SESSION_ID"
 #define TOTO_SESSION_EXPIRES_KEY @"TOTO_SESSION_EXPIRES"
 
+static NSString * const TotoServiceContentTypeJSON = @"application/json";
+
 @interface TotoService ()
 
 @property (nonatomic, strong) NSMutableDictionary *queuedRequests;
+@property (nonatomic, strong) NSMutableDictionary *deserializers;
+@property (nonatomic, strong, readwrite) NSString *contentType;
+@property (nonatomic, copy) NSData* (^requestSerializer)(id request, NSMutableDictionary *requestHeaders);
+
 
 -(void)setUserID:(NSString*)userID SessionID:(NSString*)sessionID expires:(NSTimeInterval)sessionExpires;
 
@@ -23,31 +28,28 @@
 
 @implementation TotoService
 
-@synthesize serviceURL = _serviceURL;
-@synthesize authenticationDelegate = _authenticationDelegate;
-@synthesize usesBSON = _usesBSON;
-@synthesize queuedRequests = _queuedRequests;
-
 #pragma mark - Lifecycle
 
-+(TotoService *)serviceWithURL:(NSURL *)url BSON:(BOOL)bson {
-    return [[self alloc] initWithURL:url BSON:bson];
++(TotoService *)serviceWithURL:(NSURL *)url contentType:(NSString*)contentType requestSerializer:(NSData *(^)(id request, NSMutableDictionary *requestHeaders))requestSerializer {
+    return [[self alloc] initWithURL:url contentType:contentType requestSerializer:requestSerializer];
 }
 
 +(TotoService *)serviceWithURL:(NSURL *)url {
-    return [self serviceWithURL:url BSON:NO];
+    return [self serviceWithURL:url contentType:TotoServiceContentTypeJSON requestSerializer:[self jsonSerializer]];
 }
 
--(TotoService *)initWithURL:(NSURL *)url BSON:(BOOL)bson {
+-(TotoService *)initWithURL:(NSURL *)url contentType:(NSString*)contentType requestSerializer:(NSData *(^)(id request, NSMutableDictionary *requestHeaders))requestSerializer {
     if ((self = [super init])) {
         _serviceURL = [url copy];
-        _usesBSON = bson;
+        _deserializers = [NSMutableDictionary dictionary];
+        [self setContentType:contentType withSerializer:requestSerializer];
+        [self setDeserializer:[[self class] jsonDeserializer] forContentType:TotoServiceContentTypeJSON];
     }
     return self;
 }
 
 -(TotoService *)initWithURL:(NSURL *)url {
-    return [self initWithURL:url BSON:NO];
+    return [self initWithURL:url contentType:TotoServiceContentTypeJSON requestSerializer:[[self class] jsonSerializer]];
 }
 
 
@@ -120,6 +122,42 @@
     }
 }
 
+#pragma mark - Serialization
+
++(NSData *(^)(id, NSMutableDictionary *))jsonSerializer {
+    return ^(id request, NSMutableDictionary *requestHeaders) {
+        return [NSJSONSerialization dataWithJSONObject:request options:0 error:NULL];
+    };
+}
+
++(id (^)(NSData *, NSDictionary *))jsonDeserializer {
+    return [self jsonDeserializerWithOptions:0];
+}
+
++(id (^)(NSData *, NSDictionary *))jsonDeserializerWithOptions:(NSJSONReadingOptions)options {
+    return ^(NSData *response, NSDictionary *responseHeaders) {
+        return [NSJSONSerialization JSONObjectWithData:response options:options error:NULL];
+    };
+}
+
+-(void)setContentType:(NSString *)contentType withSerializer:(NSData *(^)(id, NSMutableDictionary *))serializer {
+    self.contentType = contentType;
+    self.requestSerializer = serializer;
+}
+
+-(void)setDeserializer:(id (^)(NSData *, NSDictionary *))deserializer forContentType:(NSString *)contentType {
+    [_deserializers setObject:[deserializer copy] forKey:contentType];
+}
+
+-(id (^)(NSData *, NSDictionary *))deserializerForContentType:(NSString *)contentType {
+    id (^deserializer)(NSData *, NSDictionary *) = _deserializers[contentType];
+    if (deserializer) return deserializer;
+    for (NSString *mime in _deserializers) {
+        if ([contentType hasPrefix:mime]) return _deserializers[mime];
+    }
+    return _deserializers[TotoServiceContentTypeJSON];
+}
+
 #pragma mark - Batching
 
 -(NSMutableDictionary *)queuedRequests {
@@ -170,16 +208,9 @@
                           [[requests objectForKey:requestID] objectForKey:@"parameters"], @"parameters",
                           nil] forKey:requestID];
     }
-    NSDictionary *requestBody = [NSDictionary dictionaryWithObject:batch forKey:@"batch"];
-    NSData *body = nil;
-    NSMutableDictionary *headers = nil;
-    if (_usesBSON) {
-        body = [requestBody BSONRepresentation];
-        headers = [NSMutableDictionary dictionaryWithObject:@"application/bson" forKey:@"content-type"];
-    } else {
-        body = [NSJSONSerialization dataWithJSONObject:requestBody options:0 error:NULL];
-        headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"content-type"];
-    }
+    NSMutableDictionary *headers = [NSMutableDictionary dictionary];
+    headers[@"content-type"] = _contentType;
+    NSData *body = _requestSerializer(@{@"batch": batch}, headers);
     if (self.sessionID && [self.userID length]) {
         [headers setObject:self.sessionID forKey:@"x-toto-session-id"];
         if (_signsRequests) {
@@ -194,12 +225,7 @@
                  headers:headers
                     body:body
           receiveHandler:^(id responseData, NSNumber *status, NSDictionary *headers) {
-              NSDictionary *batchResponse = nil;
-              if ([[headers objectForKey:@"content-type"] hasPrefix:@"application/bson"]) {
-                  batchResponse = [responseData BSONValue];
-              } else {
-                  batchResponse = [NSJSONSerialization JSONObjectWithData:responseData options:_JSONReadingOptions error:NULL];
-              }
+              NSDictionary *batchResponse = [self deserializerForContentType:[headers objectForKey:@"content-type"]](responseData, headers);
               NSDictionary *session = [batchResponse objectForKey:@"session"];
               if (session) {
                   self.sessionData = session;
@@ -310,19 +336,12 @@
     if (!parameters) {
         parameters = [NSDictionary dictionary];
     }
-    NSData *body = nil;
     NSMutableDictionary *requestHeaders = [NSMutableDictionary dictionaryWithDictionary:[[self class] defaultRequestHeaders]];
     if (headers) {
         [requestHeaders setValuesForKeysWithDictionary:headers];
     }
-    if (_usesBSON) {
-        body = [[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] BSONRepresentation];
-        [requestHeaders setObject:@"application/bson" forKey:@"content-type"];
-    } else {
-        body = [NSJSONSerialization dataWithJSONObject:[NSDictionary dictionaryWithObjectsAndKeys:method, @"method", parameters, @"parameters", nil] options:0 error:NULL];
-        [requestHeaders setObject:@"application/json" forKey:@"content-type"];
-        
-    }
+    requestHeaders[@"content-type"] = _contentType;
+    NSData *body = _requestSerializer(@{@"method": method, @"parameters": parameters}, requestHeaders);
     if (self.sessionID && [self.userID length]) {
         [requestHeaders setObject:self.sessionID forKey:@"x-toto-session-id"];
         if (_signsRequests) {
@@ -337,12 +356,7 @@
                  headers:requestHeaders
                     body:useQueryParameters ? nil : body
           receiveHandler:^(id responseData, NSNumber *status, NSDictionary *headers) {
-              NSDictionary *response = nil;
-              if ([[headers objectForKey:@"content-type"] hasPrefix:@"application/bson"]) {
-                  response = [responseData BSONValue];
-              } else {
-                  response = [NSJSONSerialization JSONObjectWithData:responseData options:_JSONReadingOptions error:nil];
-              }
+              NSDictionary *response = [self deserializerForContentType:[headers objectForKey:@"content-type"]](responseData, headers);
               NSDictionary *responseError = [response objectForKey:@"error"];
               if (responseError) {
                   NSInteger errorCode = [[responseError objectForKey:@"code"] integerValue];
