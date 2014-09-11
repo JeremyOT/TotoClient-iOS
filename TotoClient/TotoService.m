@@ -366,7 +366,7 @@ static NSString * const TotoServiceContentTypeJSON = @"application/json";
                   } else if (errorHandler) {
                       errorHandler([NSError errorWithDomain:@"TotoServiceError"
                                                        code:errorCode
-                                                   userInfo:[NSDictionary dictionaryWithObject:[responseError objectForKey:@"value"] forKey:NSLocalizedDescriptionKey]]);
+                                                   userInfo:[responseError objectForKey:@"value"] ? [NSDictionary dictionaryWithObject:[responseError objectForKey:@"value"] forKey:NSLocalizedDescriptionKey] : nil]);
                   }
                   return;
               }
