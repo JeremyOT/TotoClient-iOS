@@ -10,41 +10,41 @@
 	<string>TotoClient</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>06E47548-CC70-4310-834D-8E391DF40FC5</key>
+		<key>C9978A8108A0A89D0CEE559B596F39ED95FFE089</key>
+		<string>github.com:JeremyOT/Yix.git</string>
+		<key>D6C21FA22C2D82B530CA401ED79E44546FDD39A2</key>
 		<string>https://github.com/JeremyOT/TotoClient-iOS.git</string>
-		<key>BBB47966-FD3C-49FE-820F-76CE1823F0AC</key>
-		<string>git://github.com/JeremyOT/ObjectiveBSON.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TotoClient.xcodeproj/project.xcworkspace</string>
+	<string>TotoClient.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>06E47548-CC70-4310-834D-8E391DF40FC5</key>
+		<key>C9978A8108A0A89D0CEE559B596F39ED95FFE089</key>
+		<string>../../../..</string>
+		<key>D6C21FA22C2D82B530CA401ED79E44546FDD39A2</key>
 		<string>../..</string>
-		<key>BBB47966-FD3C-49FE-820F-76CE1823F0AC</key>
-		<string>../../ObjectiveBSON</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/JeremyOT/TotoClient-iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>06E47548-CC70-4310-834D-8E391DF40FC5</string>
+	<string>D6C21FA22C2D82B530CA401ED79E44546FDD39A2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>BBB47966-FD3C-49FE-820F-76CE1823F0AC</string>
+			<string>C9978A8108A0A89D0CEE559B596F39ED95FFE089</string>
 			<key>IDESourceControlWCCName</key>
-			<string>ObjectiveBSON</string>
+			<string>..</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>06E47548-CC70-4310-834D-8E391DF40FC5</string>
+			<string>D6C21FA22C2D82B530CA401ED79E44546FDD39A2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>TotoClient-iOS</string>
 		</dict>
