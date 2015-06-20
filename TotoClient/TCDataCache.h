@@ -27,6 +27,8 @@ typedef void (^ImageCallback)(UIImage*);
 -(NSString*)cachePathForURL:(NSURL*)url;
 -(void)dataFromURL:(NSURL*)url block:(void (^)(NSData *data))block;
 -(void)dataFromURL:(NSURL*)url ignoreCache:(BOOL)ignoreCache block:(void (^)(NSData *data))block;
+-(UIImage*)cachedImageFromURL:(NSURL*)url;
+-(void)cacheImage:(UIImage*)image forURL:(NSURL*)url;
 -(void)imageFromURL:(NSURL*)url block:(void (^)(UIImage *image))block;
 -(void)imageFromURL:(NSURL*)url ignoreCache:(BOOL)ignoreCache block:(void (^)(UIImage *image))block;
 -(void)imageFromData:(NSData *)data forSourceURL:(NSURL *)url withCompletionHandler:(void(^)(UIImage *image)) completionHandler;

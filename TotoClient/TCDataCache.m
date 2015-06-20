@@ -109,6 +109,14 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
     return [NSData dataWithContentsOfFile:cachePath];
 }
 
+-(UIImage*)cachedImageFromURL:(NSURL*)url {
+    return [_cache objectForKey:url];
+}
+
+-(void)cacheImage:(UIImage*)image forURL:(NSURL*)url {
+    [_cache setObject:image forKey:url cost:[self cacheCostForImage:image]];
+}
+
 -(void)imageFromURL:(NSURL *)url block:(ImageCallback)block {
     [self imageFromURL:url ignoreCache:NO block:block];
 }
@@ -147,7 +155,7 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
 }
 
 -(void)imageFromURL:(NSURL *)url ignoreCache:(BOOL)ignoreCache block:(ImageCallback)block {
-    UIImage *memoryCachedImage = [_cache objectForKey:url];
+    UIImage *memoryCachedImage = [self cachedImageFromURL:url];
     if (memoryCachedImage) {
         block(memoryCachedImage);
         return;
