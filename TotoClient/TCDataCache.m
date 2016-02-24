@@ -98,8 +98,13 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
     TCDataService *service = [TCDataService service];
     service.runLoop = _runLoop;
     [service requestWithURL:url method:@"GET" headers:nil body:nil receiveHandler:^(id response, NSNumber *status, NSDictionary *headers) {
-        [(NSData*)response writeToFile:cachePath atomically:YES];
-        block(response);
+        if ([status integerValue] / 100 == 2) {
+            [(NSData*)response writeToFile:cachePath atomically:YES];
+            block(response);
+        } else {
+            NSLog(@"Received response with status: %@", status);
+            block(nil);
+        }
     } errorHandler:^(NSError *error) {
         block(nil);
     }];
