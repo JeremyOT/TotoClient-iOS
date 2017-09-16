@@ -198,7 +198,7 @@ static NSString * const TotoServiceContentTypeJSON = @"application/json";
                                     nil] forKey:requestID];
 }
 
--(void)batchRequest:(void(^)())completeHandler {
+-(NSURLSessionTask*)batchRequest:(void(^)())completeHandler {
     NSDictionary *requests = _queuedRequests;
     self.queuedRequests = nil;
     NSMutableDictionary *batch = [NSMutableDictionary dictionaryWithCapacity:[requests count]];
@@ -220,7 +220,7 @@ static NSString * const TotoServiceContentTypeJSON = @"application/json";
             _preflightHandler(body, headers);
         }
     }
-    [self requestWithURL:self.serviceURL
+    return [self requestWithURL:self.serviceURL
                   method:@"POST"
                  headers:headers
                     body:body
@@ -271,7 +271,7 @@ static NSString * const TotoServiceContentTypeJSON = @"application/json";
 
 #pragma mark - Requests
 
--(void)authenticateWithUserID:(NSString *)userID
+-(NSURLSessionTask*)authenticateWithUserID:(NSString *)userID
                      password:(NSString *)password
          additionalParameters:(NSDictionary *)parameters
                receiveHandler:(void (^)(id))receiveHandler
@@ -281,14 +281,14 @@ static NSString * const TotoServiceContentTypeJSON = @"application/json";
     [authenticationParameters setObject:userID forKey:@"user_id"];
     [authenticationParameters setObject:password forKey:@"password"];
     [self setUserID:nil SessionID:nil expires:0];
-    [self totoRequestWithMethodName:@"account.login"
+    return [self totoRequestWithMethodName:@"account.login"
                          parameters:authenticationParameters
                      receiveHandler:^(id result) {
                          receiveHandler(result);
                      } errorHandler:errorHandler];
 }
 
--(void)createAccountWithUserID:(NSString *)userID
+-(NSURLSessionTask*)createAccountWithUserID:(NSString *)userID
                       password:(NSString *)password
           additionalParameters:(NSDictionary *)parameters
                 receiveHandler:(void (^)(id))receiveHandler
@@ -298,36 +298,36 @@ static NSString * const TotoServiceContentTypeJSON = @"application/json";
     [authenticationParameters setObject:userID forKey:@"user_id"];
     [authenticationParameters setObject:password forKey:@"password"];
     [self setUserID:nil SessionID:nil expires:0];
-    [self totoRequestWithMethodName:@"account.create"
+    return [self totoRequestWithMethodName:@"account.create"
                          parameters:authenticationParameters
                      receiveHandler:^(id result) {
                          receiveHandler(result);
                      } errorHandler:errorHandler];
 }
 
--(void)totoRequestWithMethodName:(NSString *)method
+-(NSURLSessionTask*)totoRequestWithMethodName:(NSString *)method
                       parameters:(id)parameters
                   receiveHandler:(void (^)(id))receiveHandler
                     errorHandler:(void (^)(NSError *))errorHandler {
-    [self totoRequestWithMethodName:method parameters:parameters headers:nil useQueryParameters:NO receiveHandler:receiveHandler errorHandler:errorHandler];
+    return [self totoRequestWithMethodName:method parameters:parameters headers:nil useQueryParameters:NO receiveHandler:receiveHandler errorHandler:errorHandler];
 }
 
--(void)totoRequestWithMethodName:(NSString *)method
+-(NSURLSessionTask*)totoRequestWithMethodName:(NSString *)method
                       parameters:(id)parameters
                          headers:(NSDictionary*)headers
                   receiveHandler:(void (^)(id))receiveHandler
                     errorHandler:(void (^)(NSError *))errorHandler {
-    [self totoRequestWithMethodName:method parameters:parameters useQueryParameters:NO receiveHandler:receiveHandler errorHandler:errorHandler];
+    return [self totoRequestWithMethodName:method parameters:parameters useQueryParameters:NO receiveHandler:receiveHandler errorHandler:errorHandler];
 }
--(void)totoRequestWithMethodName:(NSString *)method
+-(NSURLSessionTask*)totoRequestWithMethodName:(NSString *)method
                       parameters:(id)parameters
               useQueryParameters:(BOOL)useQueryParameters
                   receiveHandler:(void (^)(id))receiveHandler
                     errorHandler:(void (^)(NSError *))errorHandler {
-    [self totoRequestWithMethodName:method parameters:parameters headers:nil useQueryParameters:useQueryParameters receiveHandler:receiveHandler errorHandler:errorHandler];
+    return [self totoRequestWithMethodName:method parameters:parameters headers:nil useQueryParameters:useQueryParameters receiveHandler:receiveHandler errorHandler:errorHandler];
 }
 
--(void)totoRequestWithMethodName:(NSString *)method
+-(NSURLSessionTask*)totoRequestWithMethodName:(NSString *)method
                       parameters:(id)parameters
                          headers:(NSDictionary*)headers
               useQueryParameters:(BOOL)useQueryParameters
@@ -351,7 +351,7 @@ static NSString * const TotoServiceContentTypeJSON = @"application/json";
             _preflightHandler(body, requestHeaders);
         }
     }
-    [self requestWithURL:useQueryParameters ? [[_serviceURL URLByAppendingPathComponent:[method stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] URLByAppendingQueryParameters:parameters] : _serviceURL
+    return [self requestWithURL:useQueryParameters ? [[_serviceURL URLByAppendingPathComponent:[method stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] URLByAppendingQueryParameters:parameters] : _serviceURL
                   method:useQueryParameters ? @"GET" : @"POST"
                  headers:requestHeaders
                     body:useQueryParameters ? nil : body

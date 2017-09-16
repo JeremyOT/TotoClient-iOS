@@ -9,23 +9,14 @@
 #define TC_RESPONSE_CLIENT_ERROR 400
 #define TC_RESPONSE_SERVER_ERROR 500
 
-@interface TCDataService : NSObject <NSURLConnectionDelegate>
-
-@property(nonatomic,strong) NSURL *requestURL;
-@property(nonatomic) NSInteger statusCode;
-@property(nonatomic,readonly,getter = isInProgress) BOOL inProgress;
-
-// Response properties
-@property(nonatomic, strong, readonly) NSDictionary *responseHeaders;
-@property(nonatomic, readonly) long long expectedContentLength;
-@property(nonatomic, strong, readonly) NSString *textEncodingName;
-@property(nonatomic, strong, readonly) NSString *MIMEType;
-@property(nonatomic, strong, readonly) NSString *suggestedFilename;
-@property(nonatomic, strong) NSRunLoop *runLoop;
+@interface TCDataService : NSObject
 
 + (TCDataService*)service;
++ (NSURLSession*)urlSession;
 
--(void)requestWithURL:(NSURL*)url
+- (NSURLSession*)urlSession;
+
+-(NSURLSessionTask*)requestWithURL:(NSURL*)url
                method:(NSString*)method
               headers:(NSDictionary*)headers
            bodyStream:(NSInputStream*)bodyStream
@@ -34,20 +25,18 @@
        receiveHandler:(void (^)(id response, NSNumber *status, NSDictionary *headers))receiveHandler
          errorHandler:(void (^)(NSError *error))errorHandler;
 
--(void)requestWithURL:(NSURL*)url
+-(NSURLSessionTask*)requestWithURL:(NSURL*)url
                method:(NSString*)method
               headers:(NSDictionary*)headers
            bodyStream:(NSInputStream*)bodyStream
        receiveHandler:(void (^)(id response, NSNumber *status, NSDictionary *headers))receiveHandler
          errorHandler:(void (^)(NSError *error))errorHandler;
 
--(void)requestWithURL:(NSURL*)url
+-(NSURLSessionTask*)requestWithURL:(NSURL*)url
                method:(NSString*)method
               headers:(NSDictionary*)headers
                  body:(NSData*)body
        receiveHandler:(void (^)(id response, NSNumber *status, NSDictionary *headers))receiveHandler
          errorHandler:(void (^)(NSError *error))errorHandler;
-
-- (void)cancel;
 
 @end

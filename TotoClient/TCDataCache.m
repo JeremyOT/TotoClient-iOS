@@ -18,8 +18,8 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
 @property (nonatomic, copy, readwrite) NSString *cachePath;
 @property (nonatomic, strong) NSCache *cache;
 @property (nonatomic, strong) NSMutableDictionary *imageCallbackBlocks;
-@property (nonatomic, assign) dispatch_queue_t lockQueue;
-@property (nonatomic, assign) dispatch_queue_t ioQueue;
+@property (nonatomic, strong) dispatch_queue_t lockQueue;
+@property (nonatomic, strong) dispatch_queue_t ioQueue;
 
 @end
 
@@ -66,9 +66,8 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
     return self;
 }
 
--(void)dealloc {
-    dispatch_release(_lockQueue);
-    dispatch_release(_ioQueue);
+-(TCDataService*)dataService {
+    return [TCDataService service];
 }
 
 -(void)setMemoryCacheCapacity:(NSUInteger)memoryCacheCapacity {
@@ -95,8 +94,7 @@ static const NSUInteger TCDefaultMemoryCacheCapacity = 0;
         block(cachedData);
         return;
     }
-    TCDataService *service = [TCDataService service];
-    service.runLoop = _runLoop;
+    TCDataService *service = [self dataService];
     [service requestWithURL:url method:@"GET" headers:nil body:nil receiveHandler:^(id response, NSNumber *status, NSDictionary *headers) {
         if ([status integerValue] / 100 == 2) {
             [(NSData*)response writeToFile:cachePath atomically:YES];

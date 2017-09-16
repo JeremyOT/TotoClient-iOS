@@ -58,43 +58,43 @@ useQueryParameters:(BOOL)useQueryParameters
 
 -(void)clearSession;
 
--(void)authenticateWithUserID:(NSString*)userID
+-(NSURLSessionTask*)authenticateWithUserID:(NSString*)userID
                      password:(NSString*)password 
          additionalParameters:(NSDictionary *)parameters
                receiveHandler:(void (^)(id response))receiveHandler
                  errorHandler:(void (^)(NSError *error))errorHandler;
 
--(void)createAccountWithUserID:(NSString*)userID
+-(NSURLSessionTask*)createAccountWithUserID:(NSString*)userID
                       password:(NSString*)password 
           additionalParameters:(NSDictionary *)parameters
                 receiveHandler:(void (^)(id response))receiveHandler
                   errorHandler:(void (^)(NSError *error))errorHandler;
 
--(void)totoRequestWithMethodName:(NSString*)method
+-(NSURLSessionTask*)totoRequestWithMethodName:(NSString*)method
                       parameters:(id)parameters
                   receiveHandler:(void (^)(id response))receiveHandler
                     errorHandler:(void (^)(NSError *error))errorHandler;
 
--(void)totoRequestWithMethodName:(NSString *)method
+-(NSURLSessionTask*)totoRequestWithMethodName:(NSString *)method
                       parameters:(id)parameters
                          headers:(NSDictionary*)headers
                   receiveHandler:(void (^)(id))receiveHandler
                     errorHandler:(void (^)(NSError *))errorHandler;
 
--(void)totoRequestWithMethodName:(NSString*)method
+-(NSURLSessionTask*)totoRequestWithMethodName:(NSString*)method
                       parameters:(id)parameters
               useQueryParameters:(BOOL)useQueryParameters
                   receiveHandler:(void (^)(id response))receiveHandler
                     errorHandler:(void (^)(NSError *error))errorHandler;
 
--(void)totoRequestWithMethodName:(NSString *)method
+-(NSURLSessionTask*)totoRequestWithMethodName:(NSString *)method
                       parameters:(id)parameters
                          headers:(NSDictionary*)headers
               useQueryParameters:(BOOL)useQueryParameters
                   receiveHandler:(void (^)(id))receiveHandler
                     errorHandler:(void (^)(NSError *))errorHandler;
 
--(void)batchRequest:(void(^)())completeHandler;
+-(NSURLSessionTask*)batchRequest:(void(^)())completeHandler;
 
 -(void)queueRequestWithMethodName:(NSString*)method
                        parameters:(id)parameters

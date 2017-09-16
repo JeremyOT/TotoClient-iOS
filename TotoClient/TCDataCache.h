@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TCDataService.h"
 
 static const NSUInteger TCDefaultMemoryCacheCapacity;
 
 @interface TCDataCache : NSObject
 
 @property (nonatomic, copy, readonly) NSString *cachePath;
-@property (nonatomic, strong) NSRunLoop *runLoop;
 @property (nonatomic) NSUInteger memoryCacheCapacity;
 typedef void (^ImageCallback)(UIImage*);
 
@@ -22,6 +22,7 @@ typedef void (^ImageCallback)(UIImage*);
 
 -(id)initWithPath:(NSString*)path;
 -(id)initWithPathInCachesDirectory:(NSString*)path;
+-(TCDataService*)dataService;
 
 -(NSData*)cachedDataForURL:(NSURL*)url cachePath:(NSString*)cachePath;
 -(NSString*)cachePathForURL:(NSURL*)url;
